@@ -17,7 +17,9 @@ public class FilmController {
 
     @PostMapping
     public Film saveNewFilm(@RequestBody Film film) {
-        filmMap.put(incrementId(), film);
+        int id = incrementId();
+        film.setId(id);
+        filmMap.put(id, film);
         return film;
     }
 
@@ -26,7 +28,7 @@ public class FilmController {
         if (checkIfFilmExists(film.getId())) {
             filmMap.put(film.getId(), film);
         }
-        return null;
+        return film;
     }
 
     @GetMapping
@@ -35,7 +37,7 @@ public class FilmController {
     }
 
     private int incrementId() {
-        return counter + 1;
+        return ++counter;
     }
 
     private boolean checkIfFilmExists(int id) {
