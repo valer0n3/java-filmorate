@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
@@ -43,9 +44,13 @@ public class FilmController {
             checkReleaseDate(film.getReleaseDate());
             checkFilmDuration(film.getDuration());
             filmMap.put(film.getId(), film);
+            log.info("new Film was successfully updated!");
+            return film;
+        } else {
+            log.info("new Film wasn't updated. Requested ID does not exists!");
+            return null;
         }
-        log.info("new Film was successfully updated!");
-        return film;
+
     }
 
     @GetMapping
