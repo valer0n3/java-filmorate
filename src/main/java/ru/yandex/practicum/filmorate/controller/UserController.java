@@ -39,7 +39,7 @@ public class UserController {
 
     @PutMapping
     public User updateFilm(@Valid @RequestBody User user) {
-        if (checkIfFilmExists(user.getId())) {
+        if (checkIfUserIdExists(user.getId())) {
             userMap.put(user.getId(), user);
             log.info("new User was successfully updated!");
             return user;
@@ -58,11 +58,11 @@ public class UserController {
         return ++counter;
     }
 
-    private boolean checkIfFilmExists(int id) {
+    private boolean checkIfUserIdExists(int id) {
         for (int userMapKey : userMap.keySet()) {
             if (id == userMapKey) {
                 return true;
-            }
+            }   
         }
         return false;
     }

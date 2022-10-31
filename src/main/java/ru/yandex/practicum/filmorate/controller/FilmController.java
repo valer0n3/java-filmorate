@@ -2,15 +2,11 @@ package ru.yandex.practicum.filmorate.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContextException;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +35,7 @@ public class FilmController {
 
     @PutMapping
     public Film updateFilm(@Valid @RequestBody Film film) {
-        if (checkIfFilmExists(film.getId())) {
+        if (checkIfFilmIdExists(film.getId())) {
             checkMaxDescriptionLength(film.getDescription());
             checkReleaseDate(film.getReleaseDate());
             checkFilmDuration(film.getDuration());
@@ -61,7 +57,7 @@ public class FilmController {
         return ++counter;
     }
 
-    private boolean checkIfFilmExists(int id) {
+    private boolean checkIfFilmIdExists(int id) {
         for (int filmMapKey : filmMap.keySet()) {
             if (id == filmMapKey) {
                 return true;
