@@ -5,6 +5,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ public class FilmController {
 
     @PostMapping
     public Film saveNewFilm(@Valid @RequestBody Film film) {
+        checkMaxDescriptionLength(film.getDescription());
         int id = incrementId();
         film.setId(id);
         filmMap.put(id, film);
@@ -48,5 +50,12 @@ public class FilmController {
             }
         }
         return false;
+    }
+
+    private void checkMaxDescriptionLength(String description) {
+        if (description.length() > 1) {
+            throw new ValidationException("Description's length is more than 200 symbols!");
+        }
+
     }
 }

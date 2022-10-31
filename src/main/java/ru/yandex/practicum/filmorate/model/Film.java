@@ -14,17 +14,17 @@ import java.time.LocalDateTime;
 @Data
 public class Film {
     private int id;
-    @NonNull
+
     @NotNull
     @NotBlank
     private String name;
-    @NonNull
+
     @NotNull
     private String description;
-    @NonNull
+
     @NotNull
     private LocalDate releaseDate;
-    @NonNull
+
     @NotNull
     private Duration duration;
 }
