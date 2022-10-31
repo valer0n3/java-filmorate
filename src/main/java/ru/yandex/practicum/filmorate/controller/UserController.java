@@ -5,6 +5,9 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +21,11 @@ public class UserController {
 
     @PostMapping
     public User saveNewUser(@Valid @RequestBody User user) {
+        checkLogin(user.getLogin());
+        if (checkIfNameIsEmpty(user.getName())) {
+            user.setName(user.getLogin());
+        }
+        checkBirthdayDate(user.getBirthday());
         int id = incrementId();
         user.setId(id);
         userMap.put(id, user);
@@ -48,5 +56,24 @@ public class UserController {
             }
         }
         return false;
+    }
+
+    private void checkLogin(String login) {
+        if (login.contains(" ")) {
+            throw new ValidationException("Login can't have \" \" symbols");
+        }
+    }
+
+    private boolean checkIfNameIsEmpty(String name) {
+        return name.isBlank();
+
+    }
+
+    private void checkBirthdayDate(LocalDate birthday) {
+        if (birthday.isAfter(LocalDate.now())) {
+            throw new ValidationException("Birthday date can't be in future");
+
+        }
+
     }
 }
