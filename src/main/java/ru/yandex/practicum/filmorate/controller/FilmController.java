@@ -75,7 +75,7 @@ public class FilmController {
 
     private void checkFilmDuration(Duration duration) {
         if (duration.toMillis() <= 0) {
-            throw new ValidationException("Movie's release date can't be earlier than 1985-12-28");
+            throw new ValidationException("Movie's duration can not be less than 0");
 
         }
 
