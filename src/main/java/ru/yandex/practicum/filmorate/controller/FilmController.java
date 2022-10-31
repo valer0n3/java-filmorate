@@ -84,8 +84,8 @@ public class FilmController {
         }
     }
 
-    private void checkFilmDuration(Duration duration) {
-        if (duration.toMillis() <= 0) {
+    private void checkFilmDuration(int duration) {
+        if (duration <= 0) {
             log.warn("Movie's duration can not be less than 0");
             throw new ValidationException("Movie's duration can not be less than 0");
         }
