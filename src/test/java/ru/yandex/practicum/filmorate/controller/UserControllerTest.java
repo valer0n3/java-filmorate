@@ -35,10 +35,10 @@ class UserControllerTest {
         User user = new User();
         user.setName(null);
         assertTrue(userController.checkIfNameIsEmpty(user)
-                , "Return incorected False when user's name is null");
+                , "Return incorrect False when user's name is null");
         user.setName(" ");
         assertTrue(userController.checkIfNameIsEmpty(user)
-                , "Return incorected False when user's name isBlanked");
+                , "Return incorrect False when user's name isBlanked");
     }
 
     @Test

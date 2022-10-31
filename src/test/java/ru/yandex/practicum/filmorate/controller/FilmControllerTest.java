@@ -3,8 +3,6 @@ package ru.yandex.practicum.filmorate.controller;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-import ru.yandex.practicum.filmorate.model.Film;
 
 import javax.validation.ValidationException;
 import java.time.LocalDate;
@@ -44,7 +42,7 @@ class FilmControllerTest {
     }
 
     @Test
-    public void shouldThrowValidationExceptionWhenFlmdurationIsLessThan0() {
+    public void shouldThrowValidationExceptionWhenFilmDurationIsLessThan0() {
         ValidationException exception = assertThrows(ValidationException.class,
                 () -> filmController.checkFilmDuration(0));
         assertEquals("Movie's duration can not be less than 0", exception.getMessage(),

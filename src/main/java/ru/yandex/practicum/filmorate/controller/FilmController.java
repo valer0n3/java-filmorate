@@ -16,9 +16,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/films")
 public class FilmController {
-    private Map<Integer, Film> filmMap = new HashMap();
+    private final Map<Integer, Film> filmMap = new HashMap<>();
     private int counter = 0;
-    private LocalDate earliestReleaseDate = LocalDate.parse("1895-12-28");
+    private final static LocalDate EARLIEST_RELEASE_DATE = LocalDate.parse("1895-12-28");
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
 
     @PostMapping
@@ -74,7 +74,7 @@ public class FilmController {
     }
 
     public void checkReleaseDate(LocalDate releaseDate) {
-        if (releaseDate.isBefore(earliestReleaseDate)) {
+        if (releaseDate.isBefore(EARLIEST_RELEASE_DATE)) {
             log.warn("Movie's release date can't be earlier than 1895-12-28");
             throw new ValidationException("Movie's release date can't be earlier than 1985-12-28");
         }

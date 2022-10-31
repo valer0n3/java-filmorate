@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private Map<Integer, User> userMap = new HashMap();
+    private final Map<Integer, User> userMap = new HashMap<>();
     private int counter = 0;
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
