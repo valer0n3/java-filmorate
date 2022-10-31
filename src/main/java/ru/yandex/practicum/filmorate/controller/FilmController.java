@@ -34,6 +34,9 @@ public class FilmController {
     @PutMapping
     public Film updateFilm(@Valid @RequestBody Film film) {
         if (checkIfFilmExists(film.getId())) {
+            checkMaxDescriptionLength(film.getDescription());
+            checkReleaseDate(film.getReleaseDate());
+            checkFilmDuration(film.getDuration());
             filmMap.put(film.getId(), film);
         }
         return film;
@@ -70,11 +73,11 @@ public class FilmController {
         }
     }
 
-        private void checkFilmDuration(Duration duration) {
-            if (duration.toMillis() <= 0) {
-                throw new ValidationException("Movie's release date can't be earlier than 1985-12-28");
+    private void checkFilmDuration(Duration duration) {
+        if (duration.toMillis() <= 0) {
+            throw new ValidationException("Movie's release date can't be earlier than 1985-12-28");
 
-            }
+        }
 
     }
 }
