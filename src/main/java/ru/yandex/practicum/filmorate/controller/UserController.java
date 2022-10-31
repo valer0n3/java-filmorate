@@ -45,9 +45,8 @@ public class UserController {
             return user;
         } else {
             log.info("new Film wasn't updated. Requested ID does not exists!");
-            return null;
+            throw new ValidationException("new Film wasn't updated. Requested ID does not exists!");
         }
-
     }
 
     @GetMapping
@@ -65,7 +64,6 @@ public class UserController {
                 return true;
             }
         }
-        log.warn("User wasn't updated. Requested ID does not exist.");
         return false;
     }
 
@@ -78,15 +76,12 @@ public class UserController {
 
     private boolean checkIfNameIsEmpty(User user) {
         return user.getName() == null || user.getName().isBlank();
-
     }
 
     private void checkBirthdayDate(LocalDate birthday) {
         if (birthday.isAfter(LocalDate.now())) {
             log.warn("Birthday can't be in future.");
             throw new ValidationException("Birthday date can't be in future");
-
         }
-
     }
 }
