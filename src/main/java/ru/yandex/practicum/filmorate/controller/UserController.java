@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ public class UserController {
     private int counter = 0;
 
     @PostMapping
-    public User saveNewUser(@RequestBody User user) {
+    public User saveNewUser(@Valid @RequestBody User user) {
         int id = incrementId();
         user.setId(id);
         userMap.put(id, user);
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PutMapping
-    public User updateFilm(@RequestBody User user) {
+    public User updateFilm(@Valid @RequestBody User user) {
         if (checkIfFilmExists(user.getId())) {
             userMap.put(user.getId(), user);
         }
