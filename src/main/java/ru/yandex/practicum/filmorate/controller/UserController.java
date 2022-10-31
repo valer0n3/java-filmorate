@@ -25,7 +25,7 @@ public class UserController {
     @PostMapping
     public User saveNewUser(@Valid @RequestBody User user) {
         checkLogin(user.getLogin());
-        if (checkIfNameIsEmpty(user.getName())) {
+        if (checkIfNameIsEmpty(user)) {
             user.setName(user.getLogin());
             log.warn("User name is empty. Login will be used as user name.");
         }
@@ -76,8 +76,8 @@ public class UserController {
         }
     }
 
-    private boolean checkIfNameIsEmpty(String name) {
-        return name.isBlank();
+    private boolean checkIfNameIsEmpty(User user) {
+        return user.getName() == null || user.getName().isBlank();
 
     }
 
