@@ -13,17 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FilmControllerTest {
     private FilmController filmController;
-    private Film film;
 
     @BeforeEach
     void setUp() {
         filmController = new FilmController();
-        film = new Film();
-        film.setId(1);
-        film.setName("test");
-        film.setDuration(100);
-        film.setDescription("testsdesc");
-        film.setReleaseDate(LocalDate.of(2020, 10, 28));
     }
 
     @AfterEach

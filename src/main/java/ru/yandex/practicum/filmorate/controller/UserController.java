@@ -3,12 +3,10 @@ package ru.yandex.practicum.filmorate.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +27,7 @@ public class UserController {
             user.setName(user.getLogin());
             log.warn("User name is empty. Login will be used as user name.");
         }
-        checkBirthdayDate(user.getBirthday());
+        checkDateOfBirth(user.getBirthday());
         int id = incrementId();
         user.setId(id);
         userMap.put(id, user);
@@ -67,21 +65,21 @@ public class UserController {
         return false;
     }
 
-    private void checkLogin(String login) {
+    public void checkLogin(String login) {
         if (login.contains(" ")) {
             log.warn("Login has \" \" symbols.");
             throw new ValidationException("Login can't have \" \" symbols");
         }
     }
 
-    private boolean checkIfNameIsEmpty(User user) {
+    public boolean checkIfNameIsEmpty(User user) {
         return user.getName() == null || user.getName().isBlank();
     }
 
-    private void checkBirthdayDate(LocalDate birthday) {
+    public void checkDateOfBirth(LocalDate birthday) {
         if (birthday.isAfter(LocalDate.now())) {
-            log.warn("Birthday can't be in future.");
-            throw new ValidationException("Birthday date can't be in future");
+            log.warn("Date of birth can't be in future.");
+            throw new ValidationException("Date of birth can't be in future");
         }
     }
 }
