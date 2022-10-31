@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContextException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -21,7 +22,7 @@ import java.util.Map;
 public class FilmController {
     private Map<Integer, Film> filmMap = new HashMap();
     private int counter = 0;
-    private LocalDate earliestReleaseDate = LocalDate.parse("1985-12-28");
+    private LocalDate earliestReleaseDate = LocalDate.parse("1895-12-28");
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
 
     @PostMapping
@@ -34,7 +35,6 @@ public class FilmController {
         filmMap.put(id, film);
         log.info("new Film was successfully added!");
         return film;
-
     }
 
     @PutMapping
@@ -48,9 +48,8 @@ public class FilmController {
             return film;
         } else {
             log.info("new Film wasn't updated. Requested ID does not exists!");
-            return null;
+            throw new ValidationException("new Film wasn't updated. Requested ID does not exists!");
         }
-
     }
 
     @GetMapping
@@ -80,9 +79,8 @@ public class FilmController {
 
     private void checkReleaseDate(LocalDate releaseDate) {
         if (releaseDate.isBefore(earliestReleaseDate)) {
-            log.warn("Movie's release date can't be earlier than 1985-12-28");
+            log.warn("Movie's release date can't be earlier than 1895-12-28");
             throw new ValidationException("Movie's release date can't be earlier than 1985-12-28");
-
         }
     }
 
@@ -90,9 +88,7 @@ public class FilmController {
         if (duration.toMillis() <= 0) {
             log.warn("Movie's duration can not be less than 0");
             throw new ValidationException("Movie's duration can not be less than 0");
-
         }
-
     }
 }
 
