@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
@@ -18,17 +20,20 @@ import java.util.Map;
 public class UserController {
     private Map<Integer, User> userMap = new HashMap();
     private int counter = 0;
+    private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping
     public User saveNewUser(@Valid @RequestBody User user) {
         checkLogin(user.getLogin());
         if (checkIfNameIsEmpty(user.getName())) {
             user.setName(user.getLogin());
+            log.warn("User name is empty. Login will be used as user name.");
         }
         checkBirthdayDate(user.getBirthday());
         int id = incrementId();
         user.setId(id);
         userMap.put(id, user);
+        log.info("new User was successfully added!");
         return user;
     }
 
@@ -36,8 +41,13 @@ public class UserController {
     public User updateFilm(@Valid @RequestBody User user) {
         if (checkIfFilmExists(user.getId())) {
             userMap.put(user.getId(), user);
+            log.info("new User was successfully updated!");
+            return user;
+        } else {
+            log.info("new Film wasn't updated. Requested ID does not exists!");
+            return null;
         }
-        return user;
+
     }
 
     @GetMapping
@@ -55,11 +65,13 @@ public class UserController {
                 return true;
             }
         }
+        log.warn("User wasn't updated. Requested ID does not exist.");
         return false;
     }
 
     private void checkLogin(String login) {
         if (login.contains(" ")) {
+            log.warn("Login has \" \" symbols.");
             throw new ValidationException("Login can't have \" \" symbols");
         }
     }
@@ -71,6 +83,7 @@ public class UserController {
 
     private void checkBirthdayDate(LocalDate birthday) {
         if (birthday.isAfter(LocalDate.now())) {
+            log.warn("Birthday can't be in future.");
             throw new ValidationException("Birthday date can't be in future");
 
         }
