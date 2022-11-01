@@ -60,12 +60,7 @@ public class UserController {
     }
 
     private boolean checkIfUserIdExists(int id) {
-        for (int userMapKey : userMap.keySet()) {
-            if (id == userMapKey) {
-                return true;
-            }
-        }
-        return false;
+        return userMap.containsKey(id);
     }
 
     void checkLogin(String login) {
