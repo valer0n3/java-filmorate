@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/users")
@@ -64,7 +65,7 @@ public class UserController {
     }
 
     void checkLogin(String login) {
-        if (login.contains("\\s")) {
+        if (Pattern.matches(".*\\s.*", login)) {
             log.warn("Login has \\s symbols.");
             throw new ValidationException("Login can't have \\s symbols");
         }
