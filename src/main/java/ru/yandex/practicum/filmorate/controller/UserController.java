@@ -32,7 +32,6 @@ public class UserController {
             user.setName(user.getLogin());
             log.warn("User name is empty. Login will be used as user name.");
         }
-        checkDateOfBirth(user.getBirthday());
         int id = incrementId();
         user.setId(id);
         userMap.put(id, user);
@@ -79,12 +78,5 @@ public class UserController {
 
     public boolean checkIfNameIsEmpty(User user) {
         return user.getName() == null || user.getName().isBlank();
-    }
-
-    public void checkDateOfBirth(LocalDate birthday) {
-        if (birthday.isAfter(LocalDate.now())) {
-            log.warn("Date of birth can't be in future.");
-            throw new ValidationException("Date of birth can't be in future");
-        }
     }
 }
