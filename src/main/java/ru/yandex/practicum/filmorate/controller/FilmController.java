@@ -28,7 +28,6 @@ public class FilmController {
 
     @PostMapping
     public Film saveNewFilm(@Valid @RequestBody Film film) {
-        checkMaxDescriptionLength(film.getDescription());
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
         int id = incrementId();
@@ -41,7 +40,6 @@ public class FilmController {
     @PutMapping
     public Film updateFilm(@Valid @RequestBody Film film) {
         if (checkIfFilmIdExists(film.getId())) {
-            checkMaxDescriptionLength(film.getDescription());
             checkReleaseDate(film.getReleaseDate());
             checkFilmDuration(film.getDuration());
             filmMap.put(film.getId(), film);
@@ -69,13 +67,6 @@ public class FilmController {
             }
         }
         return false;
-    }
-
-    public void checkMaxDescriptionLength(String description) {
-        if (description.length() > 200) {
-            log.warn("Description's length is more than 200 symbols!");
-            throw new ValidationException("Description's length is more than 200 symbols!");
-        }
     }
 
     public void checkReleaseDate(LocalDate releaseDate) {
