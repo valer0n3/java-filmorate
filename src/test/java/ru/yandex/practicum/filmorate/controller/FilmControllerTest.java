@@ -23,17 +23,6 @@ class FilmControllerTest {
     }
 
     @Test
-    public void shouldThrowValidationExceptionWhenDescriptionLengthIsMoreThan200() {
-        ValidationException exception = assertThrows(ValidationException.class,
-                () -> filmController.checkMaxDescriptionLength("12345678910123456789101234567891012345678910" +
-                        "1234567891012345678910123456789101234567891012345678910123456789101234567891012345678910" +
-                        "12345678910123456789101234567891012345678910123456789101234567891012345678910"));
-        assertEquals("Description's length is more than 200 symbols!", exception.getMessage(),
-                "Exception ValidationException is not correctly " +
-                        "thrown when description length is more than 200 symbols");
-    }
-
-    @Test
     public void shouldThrowValidationExceptionWhenReleaseDateIsEarlierThan1895_12_28() {
         ValidationException exception = assertThrows(ValidationException.class,
                 () -> filmController.checkReleaseDate(LocalDate.of(1895, 12, 27)));
