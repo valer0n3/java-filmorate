@@ -60,7 +60,7 @@ public class FilmController {
         return ++counter;
     }
 
-    public boolean checkIfFilmIdExists(int id) {
+    private boolean checkIfFilmIdExists(int id) {
         for (int filmMapKey : filmMap.keySet()) {
             if (id == filmMapKey) {
                 return true;
@@ -69,14 +69,14 @@ public class FilmController {
         return false;
     }
 
-    public void checkReleaseDate(LocalDate releaseDate) {
+    void checkReleaseDate(LocalDate releaseDate) {
         if (releaseDate.isBefore(EARLIEST_RELEASE_DATE)) {
             log.warn("Movie's release date can't be earlier than 1895-12-28");
             throw new ValidationException("Movie's release date can't be earlier than 1985-12-28");
         }
     }
 
-    public void checkFilmDuration(int duration) {
+    void checkFilmDuration(int duration) {
         if (duration <= 0) {
             log.warn("Movie's duration can not be less than 0");
             throw new ValidationException("Movie's duration can not be less than 0");
