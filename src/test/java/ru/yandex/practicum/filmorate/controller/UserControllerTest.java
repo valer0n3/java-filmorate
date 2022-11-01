@@ -22,7 +22,7 @@ class UserControllerTest {
     public void ShouldThrowValidationExceptionWhenLoginHasSpaces() {
         ValidationException exception = assertThrows(ValidationException.class,
                 () -> userController.checkLogin("tes t"));
-        assertEquals("Login can't have \" \" symbols", exception.getMessage(),
+        assertEquals("Login can't have \\s symbols", exception.getMessage(),
                 "Exception ValidationException is not correctly thrown when login has spaces");
     }
 
