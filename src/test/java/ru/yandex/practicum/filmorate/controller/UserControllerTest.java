@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.ValidationException;
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,14 +40,5 @@ class UserControllerTest {
         user.setName(" ");
         assertTrue(userController.checkIfNameIsEmpty(user)
                 , "Return incorrect False when user's name isBlanked");
-    }
-
-    @Test
-    public void ShouldThrowValidationExceptionWhenDateOfBirthIsAfterNow() {
-        ValidationException exception = assertThrows(ValidationException.class,
-                () -> userController.checkDateOfBirth(LocalDate.now().plusDays(1)));
-        assertEquals("Date of birth can't be in future", exception.getMessage(),
-                "Exception ValidationException is not correctly " +
-                        "thrown when date of birth is after now");
     }
 }
