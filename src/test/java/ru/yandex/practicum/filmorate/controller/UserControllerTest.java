@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.model.User;
@@ -17,10 +16,6 @@ class UserControllerTest {
     @BeforeEach
     void setUp() {
         userController = new UserController();
-    }
-
-    @AfterEach
-    void tearDown() {
     }
 
     @Test
