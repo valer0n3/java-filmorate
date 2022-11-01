@@ -68,14 +68,14 @@ public class UserController {
         return false;
     }
 
-    public void checkLogin(String login) {
+    void checkLogin(String login) {
         if (login.contains("\\s")) {
             log.warn("Login has \\s symbols.");
             throw new ValidationException("Login can't have \\s symbols");
         }
     }
 
-    public boolean checkIfNameIsEmpty(User user) {
+    boolean checkIfNameIsEmpty(User user) {
         return user.getName() == null || user.getName().isBlank();
     }
 }
