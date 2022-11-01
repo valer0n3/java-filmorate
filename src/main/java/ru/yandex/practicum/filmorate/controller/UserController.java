@@ -70,9 +70,9 @@ public class UserController {
     }
 
     public void checkLogin(String login) {
-        if (login.contains(" ")) {
-            log.warn("Login has \" \" symbols.");
-            throw new ValidationException("Login can't have \" \" symbols");
+        if (login.contains("\\s")) {
+            log.warn("Login has \\s symbols.");
+            throw new ValidationException("Login can't have \\s symbols");
         }
     }
 
