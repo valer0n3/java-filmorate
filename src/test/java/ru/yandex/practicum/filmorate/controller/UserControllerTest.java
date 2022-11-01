@@ -30,10 +30,10 @@ class UserControllerTest {
     public void ShouldReturnTrueWhenNameIsNullOrEmpty() {
         User user = new User();
         user.setName(null);
-        assertTrue(userController.checkIfNameIsEmpty(user)
-                , "Return incorrect False when user's name is null");
+        assertTrue(userController.checkIfNameIsEmpty(user),
+                "Return incorrect False when user's name is null");
         user.setName(" ");
-        assertTrue(userController.checkIfNameIsEmpty(user)
-                , "Return incorrect False when user's name isBlanked");
+        assertTrue(userController.checkIfNameIsEmpty(user),
+                "Return incorrect False when user's name isBlanked");
     }
 }
