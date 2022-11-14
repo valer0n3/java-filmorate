@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.service;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.yandex.practicum.filmorate.controller.FilmController;
@@ -8,7 +9,6 @@ import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
 
 import javax.validation.ValidationException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FilmValidationService {

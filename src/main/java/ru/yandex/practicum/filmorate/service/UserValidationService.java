@@ -9,7 +9,6 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 
 import javax.validation.ValidationException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
