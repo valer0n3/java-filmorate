@@ -19,22 +19,17 @@ public class InMemoryUserStorage implements UserStorage {
     private int counter = 0;
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
+
     @Override
     public User saveNewUser(User user) {
-        checkLogin(user.getLogin());
-        if (checkIfNameIsEmpty(user)) {
-            user.setName(user.getLogin());
-            log.warn("User name is empty. Login will be used as user name.");
-        }
         int id = incrementId();
         user.setId(id);
         userMap.put(id, user);
-        log.info("new User was successfully added!");
         return user;
     }
 
     @Override
-    public User updateFilm(User user) {
+    public User updateUser(User user) {
         if (checkIfUserIdExists(user.getId())) {
             userMap.put(user.getId(), user);
             log.info("new User was successfully updated!");
@@ -46,7 +41,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public List<User> getAllFilms() {
+    public List<User> getAllUsers() {
         return new ArrayList<>(userMap.values());
     }
 
@@ -58,14 +53,5 @@ public class InMemoryUserStorage implements UserStorage {
         return userMap.containsKey(id);
     }
 
-    void checkLogin(String login) {
-        if (Pattern.matches(".*\\s.*", login)) {
-            log.warn("Login has \\s symbols.");
-            throw new ValidationException("Login can't have \\s symbols");
-        }
-    }
 
-    boolean checkIfNameIsEmpty(User user) {
-        return user.getName() == null || user.getName().isBlank();
-    }
 }

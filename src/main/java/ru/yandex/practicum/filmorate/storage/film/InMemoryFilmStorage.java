@@ -22,8 +22,6 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public Film saveNewFilm(Film film) {
-        checkReleaseDate(film.getReleaseDate());
-        checkFilmDuration(film.getDuration());
         int id = incrementId();
         film.setId(id);
         filmMap.put(id, film);
@@ -34,8 +32,6 @@ public class InMemoryFilmStorage implements FilmStorage {
     @Override
     public Film updateFilm(Film film) {
         if (checkIfFilmIdExists(film.getId())) {
-            checkReleaseDate(film.getReleaseDate());
-            checkFilmDuration(film.getDuration());
             filmMap.put(film.getId(), film);
             log.info("new Film was successfully updated!");
             return film;
@@ -59,19 +55,6 @@ public class InMemoryFilmStorage implements FilmStorage {
         return false;
     }
 
-    void checkReleaseDate(LocalDate releaseDate) {
-        if (releaseDate.isBefore(EARLIEST_RELEASE_DATE)) {
-            log.warn("Movie's release date can't be earlier than 1895-12-28");
-            throw new ValidationException("Movie's release date can't be earlier than 1985-12-28");
-        }
-    }
-
-    void checkFilmDuration(int duration) {
-        if (duration <= 0) {
-            log.warn("Movie's duration can not be less than 0");
-            throw new ValidationException("Movie's duration can not be less than 0");
-        }
-    }
 
     private int incrementId() {
         return ++counter;

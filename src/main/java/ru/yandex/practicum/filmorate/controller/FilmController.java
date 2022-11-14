@@ -16,6 +16,7 @@ public class FilmController {
     @Autowired
     public FilmController(InMemoryFilmStorage inMemoryFilmStorage) {
         this.inMemoryFilmStorage = inMemoryFilmStorage;
+        System.out.println("*****FILMCOntroller\n" + inMemoryFilmStorage);
 
     }
 

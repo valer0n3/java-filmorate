@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserValidationService;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 
 import javax.validation.Valid;
@@ -11,26 +12,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final InMemoryUserStorage inMemoryUserStorage;
+    private final UserValidationService userValidationService;
 
     @Autowired
-    public UserController(InMemoryUserStorage inMemoryUserStorage) {
-        this.inMemoryUserStorage = inMemoryUserStorage;
+    public UserController(UserValidationService userValidationService ) {
+        this.userValidationService = userValidationService;
     }
 
     @PostMapping
     public User saveNewUser(@Valid @RequestBody User user) {
-        return inMemoryUserStorage.saveNewUser(user);
+        return userValidationService.saveNewUser(user);
     }
 
     @PutMapping
-    public User updateFilm(@Valid @RequestBody User user) {
-        return inMemoryUserStorage.updateFilm(user);
+    public User updateUser(@Valid @RequestBody User user) {
+        return userValidationService.updateUser(user);
     }
 
     @GetMapping
     public List<User> getAllFilms() {
-        return inMemoryUserStorage.getAllFilms();
+        return userValidationService.getAllUsers();
     }
 
 
