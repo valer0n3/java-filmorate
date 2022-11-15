@@ -22,6 +22,8 @@ public class UserService {
         User userFriend = userStorage.getUserById(friendId);
         checkIfUserObjectIsNull(user, userFriend);
         userStorage.saveFriend(user, userFriend);
+        System.out.println(user.getSetOfFriends());
+        System.out.println(userFriend.getSetOfFriends());
     }
 
     public void deleteFriend(long id, long friendId) {
@@ -30,6 +32,8 @@ public class UserService {
         User userFriend = userStorage.getUserById(friendId);
         checkIfUserObjectIsNull(user, userFriend);
         userStorage.deleteFriend(user, userFriend);
+        System.out.println(user.getSetOfFriends());
+        System.out.println(userFriend.getSetOfFriends());
     }
 
     public void checkIfIdIsLessThan0(long id, long friendId) {

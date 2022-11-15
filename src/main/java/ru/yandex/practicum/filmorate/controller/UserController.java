@@ -47,6 +47,7 @@ public class UserController {
     public void deleteFriend(@PathVariable long id,
                              @PathVariable long friendId) {
         //TODO add implmentation
+        userService.deleteFriend(id, friendId);
     }
 
 
