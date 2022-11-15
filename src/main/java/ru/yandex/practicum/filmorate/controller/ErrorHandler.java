@@ -16,14 +16,14 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public ErrorResponse uncorrectedValue(final UncorrectedInputException e) {
-        log.warn("Error: 406 ", e.getMessage());
+        log.warn("Error 406: " +  e.getMessage());
         return new ErrorResponse("UncorrectedInputException ", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse objectNotFound(final ObjectNotFoundException e) {
-        log.warn("Error: 404 ", e.getMessage());
+        log.warn("Error 404: " + e.getMessage());
         return new ErrorResponse("ObjectNotFoundException ", e.getMessage());
     }
 }
