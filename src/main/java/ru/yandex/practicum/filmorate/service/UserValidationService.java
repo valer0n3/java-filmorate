@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
+import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import javax.validation.ValidationException;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 
 @Service
 public class UserValidationService {
-    private final InMemoryUserStorage inMemoryUserStorage;
+    private final UserStorage inMemoryUserStorage;
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
 
 import javax.validation.ValidationException;
@@ -18,7 +19,7 @@ public class FilmValidationService {
     private final static LocalDate EARLIEST_RELEASE_DATE = LocalDate.parse("1895-12-28");
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
 
-    private final InMemoryFilmStorage inMemoryFilmStorage;
+    private final FilmStorage inMemoryFilmStorage;
 
     @Autowired
     public FilmValidationService(InMemoryFilmStorage inMemoryFilmStorage) {
