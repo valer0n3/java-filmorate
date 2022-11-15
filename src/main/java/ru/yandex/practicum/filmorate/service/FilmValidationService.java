@@ -3,6 +3,8 @@ package ru.yandex.practicum.filmorate.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
@@ -11,12 +13,14 @@ import javax.validation.ValidationException;
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class FilmValidationService {
     private final static LocalDate EARLIEST_RELEASE_DATE = LocalDate.parse("1895-12-28");
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
 
     private final InMemoryFilmStorage inMemoryFilmStorage;
 
+    @Autowired
     public FilmValidationService(InMemoryFilmStorage inMemoryFilmStorage) {
         this.inMemoryFilmStorage = inMemoryFilmStorage;
     }
