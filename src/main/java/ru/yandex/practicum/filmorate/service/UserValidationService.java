@@ -15,12 +15,12 @@ import java.util.regex.Pattern;
 
 @Service
 public class UserValidationService {
-    private final UserStorage inMemoryUserStorage;
+    private final UserStorage userStorage;
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     public UserValidationService(InMemoryUserStorage inMemoryUserStorage) {
-        this.inMemoryUserStorage = inMemoryUserStorage;
+        this.userStorage = inMemoryUserStorage;
     }
 
     public User saveNewUser(User user) {
@@ -29,17 +29,17 @@ public class UserValidationService {
             user.setName(user.getLogin());
             log.warn("User name is empty. Login will be used as user name.");
         }
-        inMemoryUserStorage.saveNewUser(user);
+        userStorage.saveNewUser(user);
         log.info("new User was successfully added!");
         return user;
     }
 
     public User updateUser(User user) {
-        return inMemoryUserStorage.updateUser(user);
+        return userStorage.updateUser(user);
     }
 
     public List<User> getAllUsers() {
-        return inMemoryUserStorage.getAllUsers();
+        return userStorage.getAllUsers();
     }
 
     void checkLogin(String login) {

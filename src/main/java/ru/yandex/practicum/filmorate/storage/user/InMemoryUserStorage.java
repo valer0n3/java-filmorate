@@ -11,17 +11,22 @@ import java.util.*;
 
 @Component
 public class InMemoryUserStorage implements UserStorage {
-    private final Map<Integer, User> userMap = new HashMap<>();
+    private final Map<Long, User> userMap = new HashMap<>();
     private int counter = 0;
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
 
     @Override
     public User saveNewUser(User user) {
-        int id = incrementId();
+        long id = incrementId();
         user.setId(id);
         userMap.put(id, user);
         return user;
+    }
+
+    @Override
+    public User getUserById(long id) {
+        return userMap.get(id);
     }
 
     @Override
@@ -42,7 +47,9 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public void saveFriend(long friendshipInitiatorId, long friendID) {
+    public void saveFriend(User user, User friendUser) {
+        user.getSetOfFriends().add(user.getId());
+        friendUser.getSetOfFriends().add(user.getId());
 
     }
 
@@ -66,7 +73,7 @@ public class InMemoryUserStorage implements UserStorage {
         return ++counter;
     }
 
-    private boolean checkIfUserIdExists(int id) {
+    private boolean checkIfUserIdExists(long id) {
         return userMap.containsKey(id);
     }
 

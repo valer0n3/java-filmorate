@@ -15,14 +15,14 @@ import java.util.Map;
 
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
-    private final Map<Integer, Film> filmMap = new HashMap<>();
+    private final Map<Long, Film> filmMap = new HashMap<>();
     private int counter = 0;
     private final static LocalDate EARLIEST_RELEASE_DATE = LocalDate.parse("1895-12-28");
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
 
     @Override
     public Film saveNewFilm(Film film) {
-        int id = incrementId();
+        long id = incrementId();
         film.setId(id);
         filmMap.put(id, film);
         log.info("new Film was successfully added!");
@@ -46,8 +46,8 @@ public class InMemoryFilmStorage implements FilmStorage {
         return new ArrayList<>(filmMap.values());
     }
 
-    private boolean checkIfFilmIdExists(int id) {
-        for (int filmMapKey : filmMap.keySet()) {
+    private boolean checkIfFilmIdExists(long id) {
+        for (long filmMapKey : filmMap.keySet()) {
             if (id == filmMapKey) {
                 return true;
             }

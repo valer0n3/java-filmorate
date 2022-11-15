@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.model;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -14,7 +16,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 public class Film {
-    private int id;
+    private long id;
     @NotNull
     @NotBlank
     private String name;
@@ -27,6 +29,7 @@ public class Film {
     private int duration;
 
     @EqualsAndHashCode.Include
+    @JsonIgnore
     public Set<Long> setOfLikes = new HashSet<>();
 
 }

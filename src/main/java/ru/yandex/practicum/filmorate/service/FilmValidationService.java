@@ -19,28 +19,28 @@ public class FilmValidationService {
     private final static LocalDate EARLIEST_RELEASE_DATE = LocalDate.parse("1895-12-28");
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
 
-    private final FilmStorage inMemoryFilmStorage;
+    private final FilmStorage filmStorage;
 
     @Autowired
     public FilmValidationService(InMemoryFilmStorage inMemoryFilmStorage) {
-        this.inMemoryFilmStorage = inMemoryFilmStorage;
+        this.filmStorage = inMemoryFilmStorage;
     }
 
     public Film saveNewFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
-        inMemoryFilmStorage.saveNewFilm(film);
+        filmStorage.saveNewFilm(film);
         return film;
     }
 
     public Film updateFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
-        return inMemoryFilmStorage.updateFilm(film);
+        return filmStorage.updateFilm(film);
     }
 
     public List<Film> getAllFilms() {
-        return inMemoryFilmStorage.getAllFilms();
+        return filmStorage.getAllFilms();
     }
 
     void checkReleaseDate(LocalDate releaseDate) {

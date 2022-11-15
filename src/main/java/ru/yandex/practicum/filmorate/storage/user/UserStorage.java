@@ -8,11 +8,13 @@ import java.util.Set;
 public interface UserStorage {
     User saveNewUser(User user);
 
+    User getUserById(long id);
+
     User updateUser(User user);
 
     List<User> getAllUsers();
 
-    void saveFriend(long friendshipInitiatorId, long friendID);
+    void saveFriend(User user, User friendUser);
 
     void deleteFriend(long userId, long friendId);
 
