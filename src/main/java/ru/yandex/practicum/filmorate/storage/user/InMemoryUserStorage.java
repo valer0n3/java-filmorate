@@ -7,10 +7,7 @@ import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.ValidationException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class InMemoryUserStorage implements UserStorage {
@@ -42,6 +39,27 @@ public class InMemoryUserStorage implements UserStorage {
     @Override
     public List<User> getAllUsers() {
         return new ArrayList<>(userMap.values());
+    }
+
+    @Override
+    public void saveFriend(long friendshipInitiatorId, long friendID) {
+
+    }
+
+    @Override
+    public void deleteFriend(long userId, long friendId) {
+
+    }
+
+    @Override
+    public Set<Long> getFriendList(long id) {
+        return null;
+        //TODO change implementation
+    }
+
+    public Set<Long> getCommonFriendList(long id) {
+        return null;
+        //TODO change implementation
     }
 
     private int incrementId() {

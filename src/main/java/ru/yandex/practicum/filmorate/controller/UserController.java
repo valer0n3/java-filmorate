@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.service.UserValidationService;
 
 import javax.validation.Valid;
@@ -12,10 +13,12 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private final UserValidationService userValidationService;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserValidationService userValidationService ) {
+    public UserController(UserValidationService userValidationService, UserService userService) {
         this.userValidationService = userValidationService;
+        this.userService = userService;
     }
 
     @PostMapping
@@ -31,6 +34,15 @@ public class UserController {
     @GetMapping
     public List<User> getAllFilms() {
         return userValidationService.getAllUsers();
+    }
+
+
+    @PutMapping("/{id}/friends/{friendId}")
+    public void addFriend(@PathVariable long id,
+                          @PathVariable long friendId) {
+        //TODO add implementation;
+           userService.addFriend(id, friendId);
+
     }
 
 
