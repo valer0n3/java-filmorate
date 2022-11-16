@@ -60,12 +60,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     private boolean checkIfFilmIdExists(long id) {
-        for (long filmMapKey : filmMap.keySet()) {
-            if (id == filmMapKey) {
-                return true;
-            }
-        }
-        return false;
+        return filmMap.containsKey(id);
     }
 
     private int incrementId() {
