@@ -41,9 +41,9 @@ public class FilmController {
 
 
     @PutMapping("/fipms/{id}/like/{userId}")
-    public void likeFilm(@PathVariable long id,
+    public void likeFilm(@PathVariable("id") long filmId,
                          @PathVariable long userId) {
-
+        filmService.likeFilm(filmId, userId);
         //TODO write implementation.
     }
 
