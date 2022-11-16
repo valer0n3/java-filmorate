@@ -44,7 +44,6 @@ public class FilmController {
     public void likeFilm(@PathVariable("id") long filmId,
                          @PathVariable long userId) {
         filmService.likeFilm(filmId, userId);
-        //TODO write implementation.
     }
 
 

@@ -21,8 +21,6 @@ public class FilmService {
         Film likedFilm = filmStorage.getFilmByID(filmId);
         checkIfFilmObjectIsNull(likedFilm);
         filmStorage.likeFilm(likedFilm, userId);
-
-
     }
 
     private void checkIfFilmObjectIsNull(Film likedFilm) {
