@@ -26,19 +26,23 @@ public class FilmService {
     }
 
     public void likeFilm(long filmId, long userId) {
-        Film likedFilm = filmStorage.getFilmByID(filmId);
-        checkIfFilmObjectIsNull(likedFilm);
-        User user = userStorage.getUserById(userId);
-        checkIfUserObjectExists(user);
-        filmStorage.likeFilm(likedFilm, userId);
+        filmStorage.likeFilm(GetFilmFromId(filmId), GetUserFromId(userId));
     }
 
     public void deleteFilmsLike(long filmId, long userId) {
-        Film likedFilm = filmStorage.getFilmByID(filmId);
+        filmStorage.deleteFilmsLike(GetFilmFromId(filmId), GetUserFromId(userId));
+    }
+
+    public Film GetFilmFromId(long id) {
+        Film likedFilm = filmStorage.getFilmByID(id);
         checkIfFilmObjectIsNull(likedFilm);
-        User user = userStorage.getUserById(userId);
+        return likedFilm;
+    }
+
+    public User GetUserFromId(long id) {
+        User user = userStorage.getUserById(id);
         checkIfUserObjectExists(user);
-        filmStorage.deleteFilmsLike(likedFilm, userId);
+        return user;
     }
 
     public List<Film> getTopLikedMovies(Integer count) {

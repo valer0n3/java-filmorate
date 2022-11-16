@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.ValidationException;
 import java.util.ArrayList;
@@ -50,13 +51,13 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     @Override
-    public void likeFilm(Film film, long userId) {
-        film.setOfLikes.add(userId);
+    public void likeFilm(Film film, User user) {
+        film.setOfLikes.add(user.getId());
     }
 
     @Override
-    public void deleteFilmsLike(Film film, long userId) {
-        film.setOfLikes.remove(userId);
+    public void deleteFilmsLike(Film film, User user) {
+        film.setOfLikes.remove(user.getId());
     }
 
     private boolean checkIfFilmIdExists(long id) {
