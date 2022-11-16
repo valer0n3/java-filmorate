@@ -1,8 +1,10 @@
 package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.yandex.practicum.filmorate.exception.IncorrectInputException;
 import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
+import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
@@ -23,7 +25,7 @@ public class UserService {
 
     public void addFriend(long id, long friendId) {
         checkifIdsAreNotEqual(id, friendId);
-        checkIfIdIsLessThan0(id, friendId);
+
         User user = userStorage.getUserById(id);
         User userFriend = userStorage.getUserById(friendId);
         checkIfUserObjectIsNull(user);
@@ -36,7 +38,7 @@ public class UserService {
 
     public void deleteFriend(long id, long friendId) {
         checkifIdsAreNotEqual(id, friendId);
-        checkIfIdIsLessThan0(id, friendId);
+
         User user = userStorage.getUserById(id);
         User userFriend = userStorage.getUserById(friendId);
         checkIfUserObjectIsNull(user);
@@ -62,17 +64,22 @@ public class UserService {
 
     public List<User> getCommonList(long id, long otherId) {
         checkifIdsAreNotEqual(id, otherId);
-        checkIfIdIsLessThan0(id, otherId);
+
         User user = userStorage.getUserById(id);
         User userFriend = userStorage.getUserById(otherId);
         checkIfUserObjectIsNull(user);
         checkIfUserObjectIsNull(userFriend);
-        checkIfSetOfFriendsIsEmpty(user, userFriend);
         return user.getSetOfFriends().stream()
                 .filter(commonId -> userFriend.getSetOfFriends().contains(commonId)).
                 map(userStorage::getUserById).
                 collect(Collectors.toList());
 
+    }
+
+    public User getUserById(long id) {
+        User user = userStorage.getUserById(id);
+        checkIfUserObjectIsNull(user);
+        return user;
     }
 
     private void checkIfSetOfFriendsIsEmpty(User user, User userFriend) {
@@ -81,13 +88,6 @@ public class UserService {
         }
     }
 
-
-    public void checkIfIdIsLessThan0(long id, long friendId) {
-        if (id < 0 || friendId < 0) {
-            System.out.println("SomethingTEST");
-            throw new IncorrectInputException("Input variables (" + id + " and " + friendId + ") can't be less then 0");
-        }
-    }
 
     private void checkifIdsAreNotEqual(long id, long friendId) {
         if (id == friendId) {

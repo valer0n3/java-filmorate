@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.service.UserValidationService;
@@ -60,5 +61,10 @@ public class UserController {
                                        @PathVariable long otherId) {
         return userService.getCommonList(id, otherId);
 
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById (@PathVariable long id) {
+        return userService.getUserById(id);
     }
 }

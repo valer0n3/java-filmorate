@@ -14,7 +14,7 @@ import ru.yandex.practicum.filmorate.model.ErrorResponse;
 public class ErrorHandler {
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse uncorrectedValue(final IncorrectInputException e) {
         log.warn("Error 400: " + e.getMessage());
         return new ErrorResponse("IncorrectInputException ", e.getMessage());
