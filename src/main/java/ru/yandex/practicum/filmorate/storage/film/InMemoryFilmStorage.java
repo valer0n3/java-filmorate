@@ -46,6 +46,16 @@ public class InMemoryFilmStorage implements FilmStorage {
         return new ArrayList<>(filmMap.values());
     }
 
+    @Override
+    public Film getFilmByID(long id) {
+        return filmMap.get(id);
+    }
+
+    @Override
+    public void likeFilm(Film film, long userId) {
+        film.setOfLikes.add(userId);
+    }
+
     private boolean checkIfFilmIdExists(long id) {
         for (long filmMapKey : filmMap.keySet()) {
             if (id == filmMapKey) {
