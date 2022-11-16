@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.yandex.practicum.filmorate.exception.IncorrectInputException;
 import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
-import ru.yandex.practicum.filmorate.exception.UncorrectedInputException;
 import ru.yandex.practicum.filmorate.model.ErrorResponse;
 
 @RestControllerAdvice
@@ -15,9 +15,9 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public ErrorResponse uncorrectedValue(final UncorrectedInputException e) {
-        log.warn("Error 406: " +  e.getMessage());
-        return new ErrorResponse("UncorrectedInputException ", e.getMessage());
+    public ErrorResponse uncorrectedValue(final IncorrectInputException e) {
+        log.warn("Error 406: " + e.getMessage());
+        return new ErrorResponse("IncorrectInputException ", e.getMessage());
     }
 
     @ExceptionHandler
@@ -26,4 +26,5 @@ public class ErrorHandler {
         log.warn("Error 404: " + e.getMessage());
         return new ErrorResponse("ObjectNotFoundException ", e.getMessage());
     }
+
 }

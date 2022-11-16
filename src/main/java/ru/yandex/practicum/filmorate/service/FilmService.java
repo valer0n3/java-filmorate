@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exception.IncorrectInputException;
 import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
@@ -9,6 +10,9 @@ import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FilmService {
@@ -20,7 +24,6 @@ public class FilmService {
         this.filmStorage = filmStorage;
         this.userStorage = userStorage;
     }
-
 
 
     public void likeFilm(long filmId, long userId) {
@@ -39,6 +42,27 @@ public class FilmService {
         filmStorage.deleteFilmsLike(likedFilm, userId);
         System.out.println("******: " + likedFilm.setOfLikes);
     }
+
+    public List<Film> getTopLikedMovies(Integer count) {
+        count = checkIfCountIsAllowedValue(count);
+      return  filmStorage.getAllFilms().stream()
+                .sorted((o1, o2) -> o2.setOfLikes.size() - o1.setOfLikes.size())
+                .limit(count)
+                .collect(Collectors.toList());
+
+
+    }
+
+    private int checkIfCountIsAllowedValue(Integer count) {
+        if (count == null) {
+            return 10;
+        }
+        if (count < 0) {
+            throw new IncorrectInputException("Parameter (count) can't be less than 0");
+        }
+        return count;
+    }
+
 
     private void checkIfUserObjectExists(User user) {
         if (user == null) {

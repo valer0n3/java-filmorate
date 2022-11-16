@@ -1,8 +1,8 @@
 package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exception.IncorrectInputException;
 import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
-import ru.yandex.practicum.filmorate.exception.UncorrectedInputException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
@@ -85,13 +85,13 @@ public class UserService {
     public void checkIfIdIsLessThan0(long id, long friendId) {
         if (id < 0 || friendId < 0) {
             System.out.println("SomethingTEST");
-            throw new UncorrectedInputException("Input variables (" + id + " and " + friendId + ") can't be less then 0");
+            throw new IncorrectInputException("Input variables (" + id + " and " + friendId + ") can't be less then 0");
         }
     }
 
     private void checkifIdsAreNotEqual(long id, long friendId) {
         if (id == friendId) {
-            throw new UncorrectedInputException("Id's can't be equals!");
+            throw new IncorrectInputException("Id's can't be equals!");
         }
     }
 
