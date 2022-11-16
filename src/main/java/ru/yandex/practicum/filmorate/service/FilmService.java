@@ -31,7 +31,7 @@ public class FilmService {
         filmStorage.likeFilm(likedFilm, userId);
     }
 
-    public void deleteFilm(long filmId, long userId) {
+    public void deleteFilmsLike(long filmId, long userId) {
         Film likedFilm = filmStorage.getFilmByID(filmId);
         checkIfFilmObjectIsNull(likedFilm);
         User user = userStorage.getUserById(userId);
