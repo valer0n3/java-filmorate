@@ -39,7 +39,6 @@ public class FilmService {
         User user = userStorage.getUserById(userId);
         checkIfUserObjectExists(user);
         filmStorage.deleteFilmsLike(likedFilm, userId);
-        System.out.println("******: " + likedFilm.setOfLikes);
     }
 
     public List<Film> getTopLikedMovies(Integer count) {

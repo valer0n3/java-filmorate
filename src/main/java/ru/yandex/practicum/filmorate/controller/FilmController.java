@@ -61,7 +61,6 @@ public class FilmController {
         return filmService.getTopLikedMovies(count);
     }
 
-    //GET .../users/{id}
     @GetMapping("/{id}")
     public Film getFilmById(@PathVariable long id) {
         return filmService.getFilmById(id);

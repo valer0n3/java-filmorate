@@ -21,25 +21,21 @@ public class UserService {
     }
 
     public void addFriend(long id, long friendId) {
-        checkifIdsAreNotEqual(id, friendId);
+        checkIfIdsAreNotEqual(id, friendId);
         User user = userStorage.getUserById(id);
         User userFriend = userStorage.getUserById(friendId);
         checkIfUserObjectIsNull(user);
         checkIfUserObjectIsNull(userFriend);
         userStorage.saveFriend(user, userFriend);
-        System.out.println(user.getSetOfFriends());
-        System.out.println(userFriend.getSetOfFriends());
     }
 
     public void deleteFriend(long id, long friendId) {
-        checkifIdsAreNotEqual(id, friendId);
+        checkIfIdsAreNotEqual(id, friendId);
         User user = userStorage.getUserById(id);
         User userFriend = userStorage.getUserById(friendId);
         checkIfUserObjectIsNull(user);
         checkIfUserObjectIsNull(userFriend);
         userStorage.deleteFriend(user, userFriend);
-        System.out.println(user.getSetOfFriends());
-        System.out.println(userFriend.getSetOfFriends());
     }
 
     public List<User> getFriendsList(long id) {
@@ -57,7 +53,7 @@ public class UserService {
     }
 
     public List<User> getCommonList(long id, long otherId) {
-        checkifIdsAreNotEqual(id, otherId);
+        checkIfIdsAreNotEqual(id, otherId);
         User user = userStorage.getUserById(id);
         User userFriend = userStorage.getUserById(otherId);
         checkIfUserObjectIsNull(user);
@@ -74,13 +70,7 @@ public class UserService {
         return user;
     }
 
-    private void checkIfSetOfFriendsIsEmpty(User user, User userFriend) {
-        if (user.getSetOfFriends().isEmpty() || userFriend.getSetOfFriends().isEmpty()) {
-            throw new ObjectNotFoundException("Общих друзей нет");
-        }
-    }
-
-    private void checkifIdsAreNotEqual(long id, long friendId) {
+    private void checkIfIdsAreNotEqual(long id, long friendId) {
         if (id == friendId) {
             throw new IncorrectInputException("Id's can't be equals!");
         }

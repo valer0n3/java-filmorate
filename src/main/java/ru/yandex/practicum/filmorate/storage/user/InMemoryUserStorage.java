@@ -64,12 +64,6 @@ public class InMemoryUserStorage implements UserStorage {
     @Override
     public Set<Long> getFriendList(User user) {
         return user.getSetOfFriends();
-        //TODO change implementation
-    }
-
-    public Set<Long> getCommonFriendList(long id) {
-        return null;
-        //TODO change implementation
     }
 
     private int incrementId() {
