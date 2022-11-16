@@ -10,6 +10,7 @@ import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -32,11 +33,6 @@ public class UserService {
         System.out.println(userFriend.getSetOfFriends());
     }
 
-    private void checkifIdsAreNotEqual(long id, long friendId) {
-        if (id == friendId) {
-            throw new UncorrectedInputException("Id's can't be equals!");
-        }
-    }
 
     public void deleteFriend(long id, long friendId) {
         checkifIdsAreNotEqual(id, friendId);
@@ -64,11 +60,38 @@ public class UserService {
         return listOfFriends;
     }
 
+    public List<User> getCommonList(long id, long otherId) {
+        checkifIdsAreNotEqual(id, otherId);
+        checkIfIdIsLessThan0(id, otherId);
+        User user = userStorage.getUserById(id);
+        User userFriend = userStorage.getUserById(otherId);
+        checkIfUserObjectIsNull(user);
+        checkIfUserObjectIsNull(userFriend);
+        checkIfSetOfFriendsIsEmpty(user, userFriend);
+        return user.getSetOfFriends().stream()
+                .filter(commonId -> userFriend.getSetOfFriends().contains(commonId)).
+                map(userStorage::getUserById).
+                collect(Collectors.toList());
+
+    }
+
+    private void checkIfSetOfFriendsIsEmpty(User user, User userFriend) {
+        if (user.getSetOfFriends().isEmpty() || userFriend.getSetOfFriends().isEmpty()) {
+            throw new ObjectNotFoundException("Общих друзей нет");
+        }
+    }
+
 
     public void checkIfIdIsLessThan0(long id, long friendId) {
         if (id < 0 || friendId < 0) {
             System.out.println("SomethingTEST");
             throw new UncorrectedInputException("Input variables (" + id + " and " + friendId + ") can't be less then 0");
+        }
+    }
+
+    private void checkifIdsAreNotEqual(long id, long friendId) {
+        if (id == friendId) {
+            throw new UncorrectedInputException("Id's can't be equals!");
         }
     }
 
