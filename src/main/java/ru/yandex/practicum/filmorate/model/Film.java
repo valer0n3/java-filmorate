@@ -29,6 +29,6 @@ public class Film {
 
     @EqualsAndHashCode.Include
     @JsonIgnore
-    public Set<Long> setOfLikes = new TreeSet<>();
+    public Set<Long> setOfLikes = new TreeSet<>((o1, o2) -> o1.compareTo(o2));
 
 }
