@@ -16,7 +16,7 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public ErrorResponse uncorrectedValue(final IncorrectInputException e) {
-        log.warn("Error 406: " + e.getMessage());
+        log.warn("Error 400: " + e.getMessage());
         return new ErrorResponse("IncorrectInputException ", e.getMessage());
     }
 

@@ -43,6 +43,7 @@ public class FilmService {
         System.out.println("******: " + likedFilm.setOfLikes);
     }
 
+
     public List<Film> getTopLikedMovies(Integer count) {
         count = checkIfCountIsAllowedValue(count);
       return  filmStorage.getAllFilms().stream()
@@ -51,6 +52,12 @@ public class FilmService {
                 .collect(Collectors.toList());
 
 
+    }
+
+    public Film getFilmById (long id) {
+        Film likedFilm = filmStorage.getFilmByID(id);
+        checkIfFilmObjectIsNull(likedFilm);
+        return likedFilm;
     }
 
     private int checkIfCountIsAllowedValue(Integer count) {
