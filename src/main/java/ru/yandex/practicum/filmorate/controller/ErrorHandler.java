@@ -12,7 +12,6 @@ import ru.yandex.practicum.filmorate.model.ErrorResponse;
 @RestControllerAdvice
 @Slf4j
 public class ErrorHandler {
-
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse uncorrectedValue(final IncorrectInputException e) {
@@ -26,5 +25,4 @@ public class ErrorHandler {
         log.warn("Error 404: " + e.getMessage());
         return new ErrorResponse("ObjectNotFoundException ", e.getMessage());
     }
-
 }

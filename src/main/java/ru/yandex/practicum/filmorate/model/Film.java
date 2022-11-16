@@ -26,9 +26,7 @@ public class Film {
     private LocalDate releaseDate;
     @NotNull
     private int duration;
-
     @EqualsAndHashCode.Include
     @JsonIgnore
     public Set<Long> setOfLikes = new HashSet<>();
-
 }

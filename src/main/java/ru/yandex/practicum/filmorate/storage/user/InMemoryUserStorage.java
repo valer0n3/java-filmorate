@@ -7,14 +7,17 @@ import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.ValidationException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Component
 public class InMemoryUserStorage implements UserStorage {
     private final Map<Long, User> userMap = new HashMap<>();
     private int counter = 0;
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
-
 
     @Override
     public User saveNewUser(User user) {
@@ -50,7 +53,6 @@ public class InMemoryUserStorage implements UserStorage {
     public void saveFriend(User user, User friendUser) {
         user.getSetOfFriends().add(friendUser.getId());
         friendUser.getSetOfFriends().add(user.getId());
-
     }
 
     @Override
@@ -77,6 +79,4 @@ public class InMemoryUserStorage implements UserStorage {
     private boolean checkIfUserIdExists(long id) {
         return userMap.containsKey(id);
     }
-
-
 }

@@ -70,7 +70,6 @@ public class InMemoryFilmStorage implements FilmStorage {
         return false;
     }
 
-
     private int incrementId() {
         return ++counter;
     }

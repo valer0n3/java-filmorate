@@ -52,5 +52,4 @@ public class UserValidationService {
     boolean checkIfNameIsEmpty(User user) {
         return user.getName() == null || user.getName().isBlank();
     }
-
 }

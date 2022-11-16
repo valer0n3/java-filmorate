@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.service;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import java.util.List;
 public class FilmValidationService {
     private final static LocalDate EARLIEST_RELEASE_DATE = LocalDate.parse("1895-12-28");
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
-
     private final FilmStorage filmStorage;
 
     @Autowired

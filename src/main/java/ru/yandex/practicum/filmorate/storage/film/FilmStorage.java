@@ -13,6 +13,7 @@ public interface FilmStorage {
 
     Film getFilmByID(long id);
 
-    void likeFilm(Film  film, long userId);
-    void deleteFilmsLike(Film  film, long userId);
+    void likeFilm(Film film, long userId);
+
+    void deleteFilmsLike(Film film, long userId);
 }

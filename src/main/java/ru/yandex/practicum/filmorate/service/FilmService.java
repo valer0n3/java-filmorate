@@ -25,7 +25,6 @@ public class FilmService {
         this.userStorage = userStorage;
     }
 
-
     public void likeFilm(long filmId, long userId) {
         Film likedFilm = filmStorage.getFilmByID(filmId);
         checkIfFilmObjectIsNull(likedFilm);
@@ -43,18 +42,15 @@ public class FilmService {
         System.out.println("******: " + likedFilm.setOfLikes);
     }
 
-
     public List<Film> getTopLikedMovies(Integer count) {
         count = checkIfCountIsAllowedValue(count);
-      return  filmStorage.getAllFilms().stream()
+        return filmStorage.getAllFilms().stream()
                 .sorted((o1, o2) -> o2.setOfLikes.size() - o1.setOfLikes.size())
                 .limit(count)
                 .collect(Collectors.toList());
-
-
     }
 
-    public Film getFilmById (long id) {
+    public Film getFilmById(long id) {
         Film likedFilm = filmStorage.getFilmByID(id);
         checkIfFilmObjectIsNull(likedFilm);
         return likedFilm;
@@ -70,7 +66,6 @@ public class FilmService {
         return count;
     }
 
-
     private void checkIfUserObjectExists(User user) {
         if (user == null) {
             throw new ObjectNotFoundException("User object is not existed");
@@ -82,5 +77,4 @@ public class FilmService {
             throw new ObjectNotFoundException("Film object is not existed");
         }
     }
-
 }
