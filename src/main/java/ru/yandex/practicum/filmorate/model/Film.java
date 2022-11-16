@@ -9,8 +9,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 @Data
 @NoArgsConstructor
@@ -29,6 +29,6 @@ public class Film {
 
     @EqualsAndHashCode.Include
     @JsonIgnore
-    public Set<Long> setOfLikes = new TreeSet<>((o1, o2) -> o1.compareTo(o2));
+    public Set<Long> setOfLikes = new HashSet<>();
 
 }
