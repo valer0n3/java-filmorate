@@ -56,6 +56,11 @@ public class InMemoryFilmStorage implements FilmStorage {
         film.setOfLikes.add(userId);
     }
 
+    @Override
+    public void deleteFilmsLike(Film film, long userId) {
+        film.setOfLikes.remove(userId);
+    }
+
     private boolean checkIfFilmIdExists(long id) {
         for (long filmMapKey : filmMap.keySet()) {
             if (id == filmMapKey) {
