@@ -31,6 +31,15 @@ public class FilmService {
         filmStorage.likeFilm(likedFilm, userId);
     }
 
+    public void deleteFilm(long filmId, long userId) {
+        Film likedFilm = filmStorage.getFilmByID(filmId);
+        checkIfFilmObjectIsNull(likedFilm);
+        User user = userStorage.getUserById(userId);
+        checkIfUserObjectExists(user);
+        filmStorage.deleteFilmsLike(likedFilm, userId);
+        System.out.println("******: " + likedFilm.setOfLikes);
+    }
+
     private void checkIfUserObjectExists(User user) {
         if (user == null) {
             throw new ObjectNotFoundException("User object is not existed");
