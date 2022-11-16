@@ -7,6 +7,10 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class UserService {
 
@@ -17,24 +21,49 @@ public class UserService {
     }
 
     public void addFriend(long id, long friendId) {
+        checkifIdsAreNotEqual(id, friendId);
         checkIfIdIsLessThan0(id, friendId);
         User user = userStorage.getUserById(id);
         User userFriend = userStorage.getUserById(friendId);
-        checkIfUserObjectIsNull(user, userFriend);
+        checkIfUserObjectIsNull(user);
+        checkIfUserObjectIsNull(userFriend);
         userStorage.saveFriend(user, userFriend);
         System.out.println(user.getSetOfFriends());
         System.out.println(userFriend.getSetOfFriends());
     }
 
+    private void checkifIdsAreNotEqual(long id, long friendId) {
+        if (id == friendId) {
+            throw new UncorrectedInputException("Id's can't be equals!");
+        }
+    }
+
     public void deleteFriend(long id, long friendId) {
+        checkifIdsAreNotEqual(id, friendId);
         checkIfIdIsLessThan0(id, friendId);
         User user = userStorage.getUserById(id);
         User userFriend = userStorage.getUserById(friendId);
-        checkIfUserObjectIsNull(user, userFriend);
+        checkIfUserObjectIsNull(user);
+        checkIfUserObjectIsNull(userFriend);
         userStorage.deleteFriend(user, userFriend);
         System.out.println(user.getSetOfFriends());
         System.out.println(userFriend.getSetOfFriends());
     }
+
+    public List<User> getFriendsList(long id) {
+        User user = userStorage.getUserById(id);
+        checkIfUserObjectIsNull(user);
+        Set<Long> setOfFriends = userStorage.getFriendList(user);
+        List<User> listOfFriends = new ArrayList<>();
+        for (Long friendsId : setOfFriends) {
+            User friend = userStorage.getUserById(friendsId);
+            if (friend != null) {
+                listOfFriends.add(friend);
+            }
+        }
+        return listOfFriends;
+    }
+
 
     public void checkIfIdIsLessThan0(long id, long friendId) {
         if (id < 0 || friendId < 0) {
@@ -43,8 +72,8 @@ public class UserService {
         }
     }
 
-    public void checkIfUserObjectIsNull(User user, User userFriend) {
-        if (user == null || userFriend == null) {
+    public void checkIfUserObjectIsNull(User user) {
+        if (user == null) {
             throw new ObjectNotFoundException("User's id does not exist");
         }
     }
