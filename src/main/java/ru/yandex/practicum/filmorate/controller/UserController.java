@@ -1,77 +1,73 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.service.UserValidationService;
 
 import javax.validation.Valid;
-import javax.validation.ValidationException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final Map<Integer, User> userMap = new HashMap<>();
-    private int counter = 0;
-    private final static Logger log = LoggerFactory.getLogger(UserController.class);
+    private final UserValidationService userValidationService;
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserValidationService userValidationService, UserService userService) {
+        this.userValidationService = userValidationService;
+        this.userService = userService;
+    }
 
     @PostMapping
     public User saveNewUser(@Valid @RequestBody User user) {
-        checkLogin(user.getLogin());
-        if (checkIfNameIsEmpty(user)) {
-            user.setName(user.getLogin());
-            log.warn("User name is empty. Login will be used as user name.");
-        }
-        int id = incrementId();
-        user.setId(id);
-        userMap.put(id, user);
-        log.info("new User was successfully added!");
-        return user;
+        return userValidationService.saveNewUser(user);
     }
 
     @PutMapping
-    public User updateFilm(@Valid @RequestBody User user) {
-        if (checkIfUserIdExists(user.getId())) {
-            userMap.put(user.getId(), user);
-            log.info("new User was successfully updated!");
-            return user;
-        } else {
-            log.info("new Film wasn't updated. Requested ID does not exists!");
-            throw new ValidationException("new Film wasn't updated. Requested ID does not exists!");
-        }
+    public User updateUser(@Valid @RequestBody User user) {
+        return userValidationService.updateUser(user);
     }
 
     @GetMapping
     public List<User> getAllFilms() {
-        return new ArrayList<>(userMap.values());
+        return userValidationService.getAllUsers();
     }
 
-    private int incrementId() {
-        return ++counter;
+    @PutMapping("/{id}/friends/{friendId}")
+    public void addFriend(@PathVariable long id,
+                          @PathVariable long friendId) {
+        userService.addFriend(id, friendId);
     }
 
-    private boolean checkIfUserIdExists(int id) {
-        return userMap.containsKey(id);
+    @DeleteMapping("/{id}/friends/{friendId}")
+    public void deleteFriend(@PathVariable long id,
+                             @PathVariable long friendId) {
+        userService.deleteFriend(id, friendId);
     }
 
-    void checkLogin(String login) {
-        if (Pattern.matches(".*\\s.*", login)) {
-            log.warn("Login has \\s symbols.");
-            throw new ValidationException("Login can't have \\s symbols");
-        }
+    @GetMapping("/{id}/friends")
+    public List<User> getFriendsList(@PathVariable long id) {
+        return userService.getFriendsList(id);
     }
 
-    boolean checkIfNameIsEmpty(User user) {
-        return user.getName() == null || user.getName().isBlank();
+    @GetMapping("/{id}/friends/common/{otherId}")
+    public List<User> getCommonFriends(@PathVariable long id,
+                                       @PathVariable long otherId) {
+        return userService.getCommonList(id, otherId);
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable long id) {
+        return userService.getUserById(id);
     }
 }
