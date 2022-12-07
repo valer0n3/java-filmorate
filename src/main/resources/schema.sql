@@ -25,7 +25,7 @@ create table if not exists FRINDSHIP
 
 create table if not exists GENRE
 (
-    GENRE_ID BIGINT auto_increment,
+    GENRE_ID BIGINT,
     NAME     CHARACTER(50) not null,
     constraint GENRE_PK
         primary key (GENRE_ID)
