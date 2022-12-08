@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class genre {
-    private long genreId;
+public class Rating {
+    private long ratinId;
     private String name;
+
 }

@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class friendship {
+public class Friendship {
     private long friendshipId;
     private long sourceConsumerId;
     private long targetConsumerId;
