@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class UserService {
     final UserStorage userStorage;
 
-    public UserService(InMemoryUserStorage userStorage) {
+    public UserService(UserStorage userStorage) {
         this.userStorage = userStorage;
     }
 

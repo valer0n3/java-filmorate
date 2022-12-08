@@ -19,7 +19,7 @@ public class UserValidationService {
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public UserValidationService(InMemoryUserStorage inMemoryUserStorage) {
+    public UserValidationService(UserStorage inMemoryUserStorage) {
         this.userStorage = inMemoryUserStorage;
     }
 
