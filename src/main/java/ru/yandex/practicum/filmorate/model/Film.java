@@ -16,8 +16,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class Film {
     private long id;
-    private long rating_id;
-    private long genre_id;
+    private long ratingId;
+    private long genreId;
     @NotNull
     @NotBlank
     private String name;
