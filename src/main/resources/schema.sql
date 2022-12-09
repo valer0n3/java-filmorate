@@ -45,9 +45,8 @@ create table if not exists FILM
     MPA_ID    BIGINT,
     NAME         CHARACTER(255) not null,
     DESCRIPTION  CHARACTER(200),
-    DURATION     CHARACTER(255),
     RELEASE_DATE DATE,
-    COLUMN_NAME  CHARACTER(255),
+    DURATION     CHARACTER(255),
     constraint FILM_PK
         primary key (FILM_ID),
     constraint "film_MPA_fk"
@@ -67,7 +66,7 @@ create table if not exists LIKES
         foreign key (FILM_ID) references FILM
 );
 
-create table FILM_GENRE
+create table if not exists  FILM_GENRE
 (
     FILM_ID  BIGINT,
     GENRE_ID INTEGER,
