@@ -32,7 +32,7 @@ public class Film {
     private MPA mpa;
     private List<Genre> genres;
 
-    //@EqualsAndHashCode.Include
-    //@JsonIgnore
-  //  public Set<Long> setOfLikes = new HashSet<>();
+    @EqualsAndHashCode.Include
+    @JsonIgnore
+    public Set<Long> setOfLikes = new HashSet<>();
 }

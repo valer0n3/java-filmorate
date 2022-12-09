@@ -1,16 +1,29 @@
 package ru.yandex.practicum.filmorate.storage.film;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.List;
 
-@Component("daoForH2Database")
+@Repository("daoForH2Database")
 public class FilmDbStorage implements FilmStorage {
-    @Override
+
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public FilmDbStorage(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+  @Override
     public Film saveNewFilm(Film film) {
-        String sqlQuery = "INSERT INTO employees()" +
+        return null;
+  }
+     /*     String sqlQuery = "INSERT INTO employees()" +
                 "VALUES (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
@@ -24,7 +37,7 @@ public class FilmDbStorage implements FilmStorage {
     }
 
         return null;
-}
+}*/
 
     @Override
     public Film updateFilm(Film film) {
