@@ -7,7 +7,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.MPA;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.sql.Date;
@@ -69,8 +68,6 @@ public class FilmDbStorage implements FilmStorage {
                 film.getReleaseDate(),
                 film.getDuration(),
                 film.getId());
-
-
         if (film.getGenres() != null) {
             String sqlQueryGenresDelete = "delete from FILM_GENRE where FILM_ID = ?";
             jdbcTemplate.update(sqlQueryGenresDelete, film.getId());
@@ -80,6 +77,7 @@ public class FilmDbStorage implements FilmStorage {
             }
         }
         return film;
+        //TODO add check if a film exists or not
     }
 
     private Long checkIfMPANotNull(Film film) {
