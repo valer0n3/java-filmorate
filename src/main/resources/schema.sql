@@ -50,7 +50,7 @@ create table if not exists FILM
     COLUMN_NAME  CHARACTER(255),
     constraint FILM_PK
         primary key (FILM_ID),
-    constraint "film_RATING_fk"
+    constraint "film_MPA_fk"
         foreign key (MPA_ID) references MPA
 );
 
