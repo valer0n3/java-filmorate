@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -28,7 +29,10 @@ public class Film {
     private LocalDate releaseDate;
     @NotNull
     private int duration;
-    @EqualsAndHashCode.Include
-    @JsonIgnore
-    public Set<Long> setOfLikes = new HashSet<>();
+    private MPA mpa;
+    private List<Genre> genre;
+
+    //@EqualsAndHashCode.Include
+    //@JsonIgnore
+  //  public Set<Long> setOfLikes = new HashSet<>();
 }

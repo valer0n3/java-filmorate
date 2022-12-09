@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Rate {
+public class MPA {
     private long ratinId;
     private String name;
 
