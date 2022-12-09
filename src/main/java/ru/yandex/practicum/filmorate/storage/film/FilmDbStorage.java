@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
+import ru.yandex.practicum.filmorate.model.MPA;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.sql.Date;
@@ -54,7 +55,37 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public Film updateFilm(Film film) {
-        return null;
+        String sqlQueryFilmUpdate = "update FILM set " +
+                "MPA_ID = ?," +
+                "NAME = ?," +
+                "DESCRIPTION = ?," +
+                "RELEASE_DATE = ?," +
+                "DURATION = ?" +
+                "where FILM_ID = ?";
+        jdbcTemplate.update(sqlQueryFilmUpdate,
+                checkIfMPANotNull(film),
+                film.getName(),
+                film.getDescription(),
+                film.getReleaseDate(),
+                film.getDuration(),
+                film.getId());
+
+
+        if (film.getGenres() != null) {
+            String sqlQueryGenresDelete = "delete from FILM_GENRE where FILM_ID = ?";
+            jdbcTemplate.update(sqlQueryGenresDelete, film.getId());
+            String sqlQueryGenresInsert = "insert into FILM_GENRE(FILM_ID, GENRE_ID) values(?, ?)";
+            for (Genre genre : film.getGenres()) {
+                jdbcTemplate.update(sqlQueryGenresInsert, film.getId(), genre.getId());
+            }
+        }
+        return film;
+    }
+
+    private Long checkIfMPANotNull(Film film) {
+        if (film.getMpa() != null) {
+            return film.getMpa().getId();
+        } else return null;
     }
 
     @Override
