@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Likes {
-    private long likesId;
-    private long filmId;
-    private long consumerId;
+public class Rate {
+    private long ratinId;
+    private String name;
+
 }

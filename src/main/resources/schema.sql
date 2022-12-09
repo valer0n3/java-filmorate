@@ -31,18 +31,18 @@ create table if not exists GENRE
         primary key (GENRE_ID)
 );
 
-create table if not exists RATE
+create table if not exists MPA
 (
-    RATE_ID BIGINT,
-    RATE_TYPE    CHARACTER(50) not null,
+    MPA_ID BIGINT,
+    MPA_TYPE    CHARACTER(50) not null,
     constraint RATING_PK
-        primary key (RATE_ID)
+        primary key (MPA_ID)
 );
 
 create table if not exists FILM
 (
     FILM_ID      BIGINT auto_increment,
-    RATE_ID    BIGINT,
+    MPA_ID    BIGINT,
     NAME         CHARACTER(255) not null,
     DESCRIPTION  CHARACTER(200),
     DURATION     CHARACTER(255),
@@ -51,7 +51,7 @@ create table if not exists FILM
     constraint FILM_PK
         primary key (FILM_ID),
     constraint "film_RATING_fk"
-        foreign key (RATE_ID) references RATE
+        foreign key (MPA_ID) references RATE
 );
 
 create table if not exists LIKES
