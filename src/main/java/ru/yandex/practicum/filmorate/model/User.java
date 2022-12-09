@@ -30,7 +30,7 @@ public class User {
     @NotNull
     @PastOrPresent
     private LocalDate birthday;
-    @EqualsAndHashCode.Exclude
+   /* @EqualsAndHashCode.Exclude
     @JsonIgnore
-    private Set<Long> setOfFriends = new HashSet<>();
+    private Set<Long> setOfFriends = new HashSet<>();*/
 }

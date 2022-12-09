@@ -30,7 +30,7 @@ public class Film {
     @NotNull
     private int duration;
     private MPA mpa;
-    private List<Genre> genre;
+    private List<Genre> genres;
 
     //@EqualsAndHashCode.Include
     //@JsonIgnore
