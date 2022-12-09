@@ -2,16 +2,20 @@ package ru.yandex.practicum.filmorate.storage.film;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.User;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Types;
 import java.util.List;
 
 @Repository("daoForH2Database")
 public class FilmDbStorage implements FilmStorage {
-
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -19,25 +23,34 @@ public class FilmDbStorage implements FilmStorage {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-  @Override
+    @Override
     public Film saveNewFilm(Film film) {
-        return null;
-  }
-     /*     String sqlQuery = "INSERT INTO employees()" +
-                "VALUES (?, ?, ?)";
+        String sqlQuery = "insert into FILM(MPA_ID, NAME, DESCRIPTION, RELEASE_DATE, DURATION) " +
+                "values (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement stmt = connection.prepareStatement(sqlQuery, new String[]{"id"});
-            stmt.setString(1, employee.getFirstName());
-            stmt.setString(2, employee.getLastName());
-            stmt.setLong(3, employee.getYearlyIncome());
+            PreparedStatement stmt = connection.prepareStatement(sqlQuery, new String[]{"film_id"});
+            if (film.getMpa() != null) {
+                stmt.setLong(1, film.getMpa().getId());
+            } else {
+                stmt.setNull(1, Types.BIGINT);
+            }
+            stmt.setString(2, film.getName());
+            stmt.setString(3, film.getDescription());
+            stmt.setDate(4, Date.valueOf(film.getReleaseDate()));
+            stmt.setString(5, String.valueOf(film.getDuration()));
             return stmt;
         }, keyHolder);
-        return keyHolder.getKey().longValue();
+        film.setId(keyHolder.getKey().longValue());
+        if (film.getGenres() != null) {
+            String sqlQueryGenres = "insert into FILM_GENRE(FILM_ID, GENRE_ID) values(?, ?)";
+            for (Genre genre : film.getGenres()) {
+                jdbcTemplate.update(sqlQueryGenres, film.getId(), genre.getId());
+            }
+        }
+        return film;
+        //TODO check that genre ID or MPA id is within range 1-3
     }
-
-        return null;
-}*/
 
     @Override
     public Film updateFilm(Film film) {

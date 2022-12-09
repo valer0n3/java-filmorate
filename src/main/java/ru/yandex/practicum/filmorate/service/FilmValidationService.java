@@ -21,8 +21,8 @@ public class FilmValidationService {
     private final FilmStorage filmStorage;
 
     @Autowired
-    public FilmValidationService(FilmStorage inMemoryFilmStorage) {
-        this.filmStorage = inMemoryFilmStorage;
+    public FilmValidationService(FilmStorage filmStorage) {
+        this.filmStorage = filmStorage;
     }
 
     public Film saveNewFilm(Film film) {

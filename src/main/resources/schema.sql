@@ -68,12 +68,16 @@ create table if not exists LIKES
 
 create table if not exists  FILM_GENRE
 (
+    FILM_GENRE_ID BIGINT auto_increment,
     FILM_ID  BIGINT,
-    GENRE_ID INTEGER,
+    GENRE_ID BIGINT,
+    constraint FILM_GENRE_PK
+        primary key (FILM_GENRE_ID),
     constraint "FILM_GENRE_FILM_fk"
         foreign key (FILM_ID) references FILM,
     constraint "FILM_GENRE_GENRE_fk"
         foreign key (GENRE_ID) references GENRE
+
 );
 
 
