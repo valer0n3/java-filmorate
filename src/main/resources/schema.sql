@@ -35,7 +35,7 @@ create table if not exists MPA
 (
     MPA_ID BIGINT,
     MPA_TYPE    CHARACTER(50) not null,
-    constraint RATING_PK
+    constraint MPA_PK
         primary key (MPA_ID)
 );
 
@@ -51,7 +51,7 @@ create table if not exists FILM
     constraint FILM_PK
         primary key (FILM_ID),
     constraint "film_RATING_fk"
-        foreign key (MPA_ID) references RATE
+        foreign key (MPA_ID) references MPA
 );
 
 create table if not exists LIKES
