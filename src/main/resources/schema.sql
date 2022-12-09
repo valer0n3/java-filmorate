@@ -1,26 +1,26 @@
-create table if not exists CONSUMER
+create table if not exists USERS
 (
-    CONSUMER_ID BIGINT auto_increment,
+    USERS_ID BIGINT auto_increment,
     EMAIL       CHARACTER(255) not null,
     LOGIN       CHARACTER(255) not null,
     NAME        CHARACTER(255),
     BIRTHDAY    DATE,
     constraint "CONSUMER_pk"
-        primary key (CONSUMER_ID)
+        primary key (USERS_ID)
 );
 
 create table if not exists FRINDSHIP
 (
     FRINDSHIP_ID       BIGINT auto_increment,
-    SOURCE_CONSUMER_ID BIGINT not null,
-    TARGET_CONSUMER_ID BIGINT not null,
+    SOURCE_USERS_ID BIGINT not null,
+    TARGET_USERS_ID BIGINT not null,
     STATUS             CHARACTER(255),
     constraint FRINDSHIP_PK
         primary key (FRINDSHIP_ID),
     constraint "FRINDSHIP_CONSUMER_INITIATOR_fk"
-        foreign key (SOURCE_CONSUMER_ID) references CONSUMER,
+        foreign key (SOURCE_USERS_ID) references USERS,
     constraint "FRINDSHIP_CONSUMER_TARGET_fk"
-        foreign key (TARGET_CONSUMER_ID) references CONSUMER
+        foreign key (TARGET_USERS_ID) references USERS
 );
 
 create table if not exists GENRE
@@ -31,19 +31,18 @@ create table if not exists GENRE
         primary key (GENRE_ID)
 );
 
-create table if not exists RATING
+create table if not exists RATE
 (
-    "rating_id   " BIGINT auto_increment,
-    RATING_TYPE    CHARACTER(50) not null,
+    RATE_ID BIGINT,
+    RATE_TYPE    CHARACTER(50) not null,
     constraint RATING_PK
-        primary key ("rating_id   ")
+        primary key (RATE_ID)
 );
 
 create table if not exists FILM
 (
     FILM_ID      BIGINT auto_increment,
-    RATING_ID    BIGINT            not null,
-    GENRE_ID     BIGINT            not null,
+    RATE_ID    BIGINT,
     NAME         CHARACTER(255) not null,
     DESCRIPTION  CHARACTER(200),
     DURATION     CHARACTER(255),
@@ -51,10 +50,8 @@ create table if not exists FILM
     COLUMN_NAME  CHARACTER(255),
     constraint FILM_PK
         primary key (FILM_ID),
-    constraint "film_GENRE_fk"
-        foreign key (GENRE_ID) references GENRE,
     constraint "film_RATING_fk"
-        foreign key (RATING_ID) references RATING
+        foreign key (RATE_ID) references RATE
 );
 
 create table if not exists LIKES
@@ -65,8 +62,20 @@ create table if not exists LIKES
     constraint LIKES_PK
         primary key (LIKES_ID),
     constraint "likes_CONSUMER_null_fk"
-        foreign key (CONSUMER_ID) references CONSUMER,
+        foreign key (CONSUMER_ID) references USERS,
     constraint "likes_FILM_null_fk"
         foreign key (FILM_ID) references FILM
 );
+
+create table FILM_GENRE
+(
+    FILM_ID  BIGINT,
+    GENRE_ID INTEGER,
+    constraint "FILM_GENRE_FILM_fk"
+        foreign key (FILM_ID) references FILM,
+    constraint "FILM_GENRE_GENRE_fk"
+        foreign key (GENRE_ID) references GENRE
+);
+
+
 
