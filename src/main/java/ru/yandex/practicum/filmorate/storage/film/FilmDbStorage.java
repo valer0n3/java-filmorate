@@ -7,7 +7,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.MPA;
+import ru.yandex.practicum.filmorate.model.Mpa;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -51,7 +51,7 @@ public class FilmDbStorage implements FilmStorage {
             }
         }
         return film;
-        //TODO check that genre ID or MPA id is within range 1-3
+        //TODO check that genre ID or Mpa id is within range 1-3
     }
 
     @Override
@@ -116,7 +116,7 @@ public class FilmDbStorage implements FilmStorage {
                 resultSet.getString("DESCRIPTION"),
                 resultSet.getDate("RELEASE_DATE").toLocalDate(),
                 resultSet.getInt("DURATION"),
-                new MPA(resultSet.getLong("MPA_ID"), resultSet.getString("MPA_TYPE")),
+                new Mpa(resultSet.getLong("MPA_ID"), resultSet.getString("MPA_TYPE")),
                 mapRowToListOfGenres(resultSet.getLong("FILM_ID"))
         );
     }

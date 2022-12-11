@@ -29,10 +29,10 @@ public class Film {
     private LocalDate releaseDate;
     @NotNull
     private int duration;
-    private MPA mpa;
+    private Mpa mpa;
     private List<Genre> genres;
 
-    public Film(long id, String name, String description, LocalDate releaseDate, int duration, MPA mpa, List<Genre> genres) {
+    public Film(long id, String name, String description, LocalDate releaseDate, int duration, Mpa mpa, List<Genre> genres) {
         this.id = id;
         this.name = name;
         this.description = description;
