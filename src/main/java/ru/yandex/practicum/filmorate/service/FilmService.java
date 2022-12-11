@@ -12,7 +12,6 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
-import javax.validation.ValidationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,11 +28,22 @@ public class FilmService {
     }
 
     public void likeFilm(long filmId, long userId) {
-        filmStorage.likeFilm(GetFilmFromId(filmId), GetUserFromId(userId));
+        //  filmStorage.likeFilm(GetFilmFromId(filmId), GetUserFromId(userId));
+        if (!filmStorage.checkIfFilmExists(filmId)) { //TODO add checkIfUserNotExists
+            log.warn("Film id does not exists!");
+            throw new ObjectNotFoundException("Film object is not existed");
+        } else {
+            filmStorage.likeFilm(filmId, userId);
+            // checkIfFilmObjectIsNull(likedFilm);
+
+        }
+
+
     }
 
     public void deleteFilmsLike(long filmId, long userId) {
-        filmStorage.deleteFilmsLike(GetFilmFromId(filmId), GetUserFromId(userId));
+        //filmStorage.deleteFilmsLike(GetFilmFromId(filmId), GetUserFromId(userId));
+
     }
 
     public Film GetFilmFromId(long id) {

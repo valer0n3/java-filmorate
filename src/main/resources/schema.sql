@@ -57,11 +57,11 @@ create table if not exists LIKES
 (
     LIKES_ID    BIGINT auto_increment,
     FILM_ID     BIGINT not null,
-    CONSUMER_ID BIGINT not null,
+    USER_ID BIGINT not null,
     constraint LIKES_PK
         primary key (LIKES_ID),
     constraint "likes_CONSUMER_null_fk"
-        foreign key (CONSUMER_ID) references USERS,
+        foreign key (USER_ID) references USERS,
     constraint "likes_FILM_null_fk"
         foreign key (FILM_ID) references FILM
 );
