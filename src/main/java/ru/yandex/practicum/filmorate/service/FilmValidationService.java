@@ -17,11 +17,10 @@ import java.util.List;
 public class FilmValidationService {
     private final static LocalDate EARLIEST_RELEASE_DATE = LocalDate.parse("1895-12-28");
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
-    @Qualifier("daoForH2Database")
     private final FilmStorage filmStorage;
 
     @Autowired
-    public FilmValidationService(FilmStorage filmStorage) {
+    public FilmValidationService( FilmStorage filmStorage) {
         this.filmStorage = filmStorage;
     }
 
@@ -35,6 +34,10 @@ public class FilmValidationService {
     public Film updateFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
+        if (!filmStorage.checkIfFilmExists(film)) {
+            log.warn("Film id does not exists!");
+            throw new ValidationException("Film id does not exists!");
+        }
         return filmStorage.updateFilm(film);
     }
 

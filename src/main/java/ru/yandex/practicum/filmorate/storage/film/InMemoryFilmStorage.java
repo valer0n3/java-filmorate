@@ -60,6 +60,11 @@ public class InMemoryFilmStorage implements FilmStorage {
         film.setOfLikes.remove(user.getId());
     }
 
+    @Override
+    public boolean checkIfFilmExists(Film film) {
+        return false;
+    }
+
     private boolean checkIfFilmIdExists(long id) {
         return filmMap.containsKey(id);
     }
