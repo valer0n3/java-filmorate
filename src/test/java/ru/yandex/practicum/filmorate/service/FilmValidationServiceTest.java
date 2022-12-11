@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 
 import javax.validation.ValidationException;
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ class FilmValidationServiceTest {
 
     @BeforeEach
     void setUp() {
-        filmValidationService = new FilmValidationService(new InMemoryFilmStorage());
+        filmValidationService = new FilmValidationService(new InMemoryFilmStorage(), new InMemoryUserStorage());
     }
 
     @Test
