@@ -1,9 +1,9 @@
 create table if not exists USERS
 (
     USERS_ID BIGINT auto_increment,
-    EMAIL       CHARACTER(255) not null,
-    LOGIN       CHARACTER(255) not null,
-    NAME        CHARACTER(255),
+    EMAIL       VARCHAR(100) not null,
+    LOGIN       VARCHAR(100) not null,
+    NAME        VARCHAR(100),
     BIRTHDAY    DATE,
     constraint "CONSUMER_pk"
         primary key (USERS_ID)
@@ -14,7 +14,7 @@ create table if not exists FRINDSHIP
     FRINDSHIP_ID       BIGINT auto_increment,
     SOURCE_USERS_ID BIGINT not null,
     TARGET_USERS_ID BIGINT not null,
-    STATUS             CHARACTER(255),
+    STATUS             VARCHAR(255),
     constraint FRINDSHIP_PK
         primary key (FRINDSHIP_ID),
     constraint "FRINDSHIP_CONSUMER_INITIATOR_fk"
@@ -26,7 +26,7 @@ create table if not exists FRINDSHIP
 create table if not exists GENRE
 (
     GENRE_ID BIGINT,
-    NAME     CHARACTER(50) not null,
+    NAME     VARCHAR(50) not null,
     constraint GENRE_PK
         primary key (GENRE_ID)
 );
@@ -34,7 +34,7 @@ create table if not exists GENRE
 create table if not exists MPA
 (
     MPA_ID BIGINT,
-    MPA_TYPE    CHARACTER(50) not null,
+    MPA_TYPE    VARCHAR(50) not null,
     constraint MPA_PK
         primary key (MPA_ID)
 );
@@ -43,10 +43,10 @@ create table if not exists FILM
 (
     FILM_ID      BIGINT auto_increment,
     MPA_ID    BIGINT,
-    NAME         CHARACTER(255) not null,
-    DESCRIPTION  CHARACTER(200),
+    NAME         VARCHAR(100) not null,
+    DESCRIPTION  VARCHAR(200),
     RELEASE_DATE DATE,
-    DURATION     CHARACTER(255),
+    DURATION     VARCHAR(100),
     constraint FILM_PK
         primary key (FILM_ID),
     constraint "film_MPA_fk"
