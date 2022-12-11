@@ -79,11 +79,19 @@ public class UserDbStorage implements UserStorage {
     }
 
     @Override
-    public void saveFriend(User user, User friendUser) {
+    public void saveFriend(long id, long friendID) {
+        String sqlQueryFriendshipInsert = "INSERT INTO FRINDSHIP (SOURCE_USERS_ID, TARGET_USERS_ID) " +
+                "VALUES (?, ?)";
+        jdbcTemplate.update(sqlQueryFriendshipInsert, id, friendID);
     }
 
+
+
     @Override
-    public void deleteFriend(User user, User friendUser) {
+    public void deleteFriend(long id, long friendID) {
+        String sqlQueryFriendshipDelete = "delete from FRINDSHIP " +
+                "where SOURCE_USERS_ID = ? and TARGET_USERS_ID = ?";
+        jdbcTemplate.update(sqlQueryFriendshipDelete, id, friendID);
     }
 
     @Override
@@ -96,6 +104,20 @@ public class UserDbStorage implements UserStorage {
         String sqlQueryUserSelect = "select count(*) from USERS where USERS_ID = ?";
         int result = jdbcTemplate.queryForObject(
                 sqlQueryUserSelect, Integer.class, userId);
+        if (result == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean checkIfFriendshipRecordExists(long id, long friendID) {
+        String sqlQueryFriendshipSelect = "select count(FRINDSHIP_ID) " +
+                "from FRINDSHIP " +
+                "where SOURCE_USERS_ID = ? and TARGET_USERS_ID = ?";
+        int result = jdbcTemplate.queryForObject(
+                sqlQueryFriendshipSelect, Integer.class, id, friendID);
         if (result == 1) {
             return true;
         } else {

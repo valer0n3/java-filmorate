@@ -25,20 +25,28 @@ public class UserService {
 
     public void addFriend(long id, long friendId) {
         checkIfIdsAreNotEqual(id, friendId);
-        User user = userStorage.getUserById(id);
-        User userFriend = userStorage.getUserById(friendId);
-        checkIfUserObjectIsNull(user);
-        checkIfUserObjectIsNull(userFriend);
-        userStorage.saveFriend(user, userFriend);
+        if (!userStorage.checkIfUserExists(id) || !userStorage.checkIfUserExists(friendId)) {
+            log.warn("User or Friend object is not existed!");
+            throw new ObjectNotFoundException("User or Friend object is not existed!");
+        }
+        if (userStorage.checkIfFriendshipRecordExists(id, friendId)) {
+            log.warn("Friendship already exists");
+            throw new IncorrectInputException("Friendship already exists");
+        }
+        userStorage.saveFriend(id, friendId);
     }
 
     public void deleteFriend(long id, long friendId) {
         checkIfIdsAreNotEqual(id, friendId);
-        User user = userStorage.getUserById(id);
-        User userFriend = userStorage.getUserById(friendId);
-        checkIfUserObjectIsNull(user);
-        checkIfUserObjectIsNull(userFriend);
-        userStorage.deleteFriend(user, userFriend);
+        if (!userStorage.checkIfUserExists(id) || !userStorage.checkIfUserExists(friendId)) {
+            log.warn("User or Friend object is not existed!");
+            throw new ObjectNotFoundException("User or Friend object is not existed!");
+        }
+        if (!userStorage.checkIfFriendshipRecordExists(id, friendId)) {
+            log.warn("Friendship already exists");
+            throw new IncorrectInputException("Friendship already exists");
+        }
+        userStorage.deleteFriend(id, friendId);
     }
 
     public List<User> getFriendsList(long id) {

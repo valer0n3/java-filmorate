@@ -14,10 +14,14 @@ public interface UserStorage {
 
     List<User> getAllUsers();
 
-    void saveFriend(User user, User friendUser);
+    // void saveFriend(User user, User friendUser);
+    void saveFriend(long id, long friendID);
 
-    void deleteFriend(User user, User friendUser);
+    void deleteFriend(long id, long friendID);
 
     Set<Long> getFriendList(User user);
-    public boolean checkIfUserExists(long userId);
+
+    boolean checkIfUserExists(long userId);
+
+    boolean checkIfFriendshipRecordExists(long id, long friendID);
 }

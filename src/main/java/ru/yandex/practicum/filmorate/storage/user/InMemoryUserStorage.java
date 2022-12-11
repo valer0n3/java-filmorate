@@ -50,15 +50,15 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public void saveFriend(User user, User friendUser) {
-        user.getSetOfFriends().add(friendUser.getId());
-        friendUser.getSetOfFriends().add(user.getId());
+    public void saveFriend(long id, long friendID) {
+        //user.getSetOfFriends().add(friendUser.getId());
+        //friendUser.getSetOfFriends().add(user.getId());
     }
 
     @Override
-    public void deleteFriend(User user, User friendUser) {
-        user.getSetOfFriends().remove(friendUser.getId());
-        friendUser.getSetOfFriends().remove(user.getId());
+    public void deleteFriend(long id, long friendID) {
+       // user.getSetOfFriends().remove(friendUser.getId());
+       // friendUser.getSetOfFriends().remove(user.getId());
     }
 
     @Override
@@ -68,6 +68,11 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public boolean checkIfUserExists(long userId) {
+        return false;
+    }
+
+    @Override
+    public boolean checkIfFriendshipRecordExists(long id, long friendID) {
         return false;
     }
 
