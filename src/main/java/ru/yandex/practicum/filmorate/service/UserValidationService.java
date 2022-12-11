@@ -36,8 +36,8 @@ public class UserValidationService {
 
     public User updateUser(User user) {
         if (!userStorage.checkIfUserExists(user.getId())) {
-            log.warn("Film id does not exists!");
-            throw new ObjectNotFoundException("Film object is not existed");
+            log.warn("User id does not exist!");
+            throw new ObjectNotFoundException("User object does not exist!");
         } else {
             return userStorage.updateUser(user);
         }

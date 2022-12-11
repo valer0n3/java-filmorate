@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.sql.Date;
@@ -45,7 +46,19 @@ public class UserDbStorage implements UserStorage {
 
     @Override
     public User updateUser(User user) {
-        return null;
+        String sqlQueryUserUpdate = "update USERS set " +
+                "EMAIL = ?," +
+                "LOGIN = ?," +
+                "NAME = ?," +
+                "BIRTHDAY = ?" +
+                "where USERS_ID = ?";
+        jdbcTemplate.update(sqlQueryUserUpdate,
+                user.getEmail(),
+                user.getLogin(),
+                user.getName(),
+                user.getBirthday(),
+                user.getId());
+        return user;
     }
 
     @Override
@@ -71,6 +84,7 @@ public class UserDbStorage implements UserStorage {
         String sqlQueryUserSelect = "select count(*) from USERS where USERS_ID = ?";
         int result = jdbcTemplate.queryForObject(
                 sqlQueryUserSelect, Integer.class, userId);
+        System.out.println("************ " + result);
         if (result == 1) {
             return true;
         } else {
