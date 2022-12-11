@@ -3,9 +3,9 @@ package ru.yandex.practicum.filmorate.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.controller.FilmController;
+import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 
@@ -20,7 +20,7 @@ public class FilmValidationService {
     private final FilmStorage filmStorage;
 
     @Autowired
-    public FilmValidationService( FilmStorage filmStorage) {
+    public FilmValidationService(FilmStorage filmStorage) {
         this.filmStorage = filmStorage;
     }
 
@@ -34,11 +34,12 @@ public class FilmValidationService {
     public Film updateFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
-        if (!filmStorage.checkIfFilmExists(film)) {
+        if (!filmStorage.checkIfFilmExists(film.getId())) {
             log.warn("Film id does not exists!");
-            throw new ValidationException("Film id does not exists!");
+            throw new ObjectNotFoundException("Film object is not existed");
+        } else {
+            return filmStorage.updateFilm(film);
         }
-        return filmStorage.updateFilm(film);
     }
 
     public List<Film> getAllFilms() {

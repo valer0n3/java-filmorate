@@ -91,10 +91,10 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     @Override
-    public boolean checkIfFilmExists(Film film) {
+    public boolean checkIfFilmExists(long filmId) {
         String sqlQueryFilmSelect = "select count(*) from FILM where FILM_ID = ?";
         int result = jdbcTemplate.queryForObject(
-                sqlQueryFilmSelect, Integer.class, film.getId());
+                sqlQueryFilmSelect, Integer.class, filmId);
         if (result == 1) {
             return true;
         } else {
@@ -136,7 +136,11 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public Film getFilmByID(long id) {
-        return null;
+        String sqlQuerySelectFilmByID = "select * from FILM as film" +
+                " inner join MPA as mpa" +
+                " ON film.MPA_ID = mpa.MPA_ID where film.FILM_ID = ?";
+        return jdbcTemplate.queryForObject(sqlQuerySelectFilmByID, (resultSet, rowNumber) -> mapRowToFilm(resultSet),
+                id);
     }
 
     @Override

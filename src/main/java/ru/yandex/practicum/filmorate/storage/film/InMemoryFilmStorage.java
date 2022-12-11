@@ -61,7 +61,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     @Override
-    public boolean checkIfFilmExists(Film film) {
+    public boolean checkIfFilmExists(long filmID) {
         return false;
     }
 
