@@ -66,6 +66,11 @@ public class InMemoryUserStorage implements UserStorage {
         return user.getSetOfFriends();
     }
 
+    @Override
+    public boolean checkIfUserExists(long userId) {
+        return false;
+    }
+
     private int incrementId() {
         return ++counter;
     }

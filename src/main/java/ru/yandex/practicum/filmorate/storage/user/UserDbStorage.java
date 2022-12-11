@@ -65,4 +65,16 @@ public class UserDbStorage implements UserStorage {
     public Set<Long> getFriendList(User user) {
         return null;
     }
+
+    @Override
+    public boolean checkIfUserExists(long userId) {
+        String sqlQueryUserSelect = "select count(*) from USERS where USERS_ID = ?";
+        int result = jdbcTemplate.queryForObject(
+                sqlQueryUserSelect, Integer.class, userId);
+        if (result == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
