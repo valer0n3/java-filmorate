@@ -37,7 +37,7 @@ public class FilmValidationService {
     public Film updateFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
-        if (!filmStorage.checkIfFilmExists(film.getId()) ) {
+        if (!filmStorage.checkIfFilmExists(film.getId())) {
             log.warn("Film id does not exists!");
             throw new ObjectNotFoundException("Film object is not existed");
         } else {
