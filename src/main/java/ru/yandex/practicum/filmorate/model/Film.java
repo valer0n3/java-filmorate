@@ -32,16 +32,19 @@ public class Film {
     private MPA mpa;
     private List<Genre> genres;
 
-    @EqualsAndHashCode.Include
-    @JsonIgnore
-    public Set<Long> setOfLikes = new HashSet<>();
-
-    public Film(long id, String name, String description, LocalDate releaseDate, int duration, MPA mpa) {
+    public Film(long id, String name, String description, LocalDate releaseDate, int duration, MPA mpa, List<Genre> genres) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
         this.mpa = mpa;
+        this.genres = genres;
     }
+
+    @EqualsAndHashCode.Include
+    @JsonIgnore
+    public Set<Long> setOfLikes = new HashSet<>();
+
+
 }

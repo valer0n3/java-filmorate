@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Genre {
     private long id;
-   // private String name;
+    private String name;
 }

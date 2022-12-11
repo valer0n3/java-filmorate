@@ -75,7 +75,7 @@ public class FilmDbStorage implements FilmStorage {
             String sqlQueryGenresDelete = "delete from FILM_GENRE where FILM_ID = ?";
             jdbcTemplate.update(sqlQueryGenresDelete, film.getId());
             String sqlQueryGenresInsert = "insert into FILM_GENRE(FILM_ID, GENRE_ID) values(?, ?)";
-            //TODO add check if genre exists otherwise we will have NPE
+            //TODO add check if genre exists otherwise we will have NPE; try to add append or batch
             for (Genre genre : film.getGenres()) {
                 jdbcTemplate.update(sqlQueryGenresInsert, film.getId(), genre.getId());
             }
@@ -107,7 +107,8 @@ public class FilmDbStorage implements FilmStorage {
         String sqlQueryFilmsSelect = "select * from FILM as film" +
                 " inner join MPA as mpa" +
                 " ON film.MPA_ID = mpa.MPA_ID";
-        return jdbcTemplate.query(sqlQueryFilmsSelect, (resultSet, rowNumber) -> mapRowToFilm(resultSet));
+        List<Film> listOfFilms = jdbcTemplate.query(sqlQueryFilmsSelect, (resultSet, rowNumber) -> mapRowToFilm(resultSet));
+        return listOfFilms;
     }
 
     private Film mapRowToFilm(ResultSet resultSet) throws SQLException {
@@ -116,9 +117,21 @@ public class FilmDbStorage implements FilmStorage {
                 resultSet.getString("DESCRIPTION"),
                 resultSet.getDate("RELEASE_DATE").toLocalDate(),
                 resultSet.getInt("DURATION"),
-                new MPA(resultSet.getLong("MPA_ID"), resultSet.getString("MPA_TYPE"))
-
+                new MPA(resultSet.getLong("MPA_ID"), resultSet.getString("MPA_TYPE")),
+                mapRowToListOfGenres(resultSet.getLong("FILM_ID"))
         );
+    }
+
+    private List<Genre> mapRowToListOfGenres(long film_id) {
+        String sqlQuerySelectFilmGenre = "select * from FILM_GENRE as filmgenre " +
+                "join GENRE as genre " +
+                "on filmgenre.GENRE_ID = genre.GENRE_ID " +
+                "where filmgenre.FILM_ID = ?";
+        List<Genre> gl = jdbcTemplate.query(sqlQuerySelectFilmGenre,
+                (resultSet, rowNumber) ->
+                        new Genre(resultSet.getLong("GENRE.GENRE_ID"),
+                                resultSet.getString(("GENRE.NAME"))), film_id);
+        return gl;
     }
 
     @Override
