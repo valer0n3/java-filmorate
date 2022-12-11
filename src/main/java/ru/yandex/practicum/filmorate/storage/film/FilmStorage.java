@@ -16,7 +16,7 @@ public interface FilmStorage {
 
     void likeFilm(long filmID, long userID);
 
-    void deleteFilmsLike(Film film, User user);
+    void deleteFilmsLike(long filmID, long userID);
 
      boolean checkIfFilmExists(long filmId);
 }

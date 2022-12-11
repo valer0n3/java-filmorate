@@ -35,15 +35,16 @@ public class FilmService {
         } else {
             filmStorage.likeFilm(filmId, userId);
             // checkIfFilmObjectIsNull(likedFilm);
-
         }
-
-
     }
 
     public void deleteFilmsLike(long filmId, long userId) {
-        //filmStorage.deleteFilmsLike(GetFilmFromId(filmId), GetUserFromId(userId));
-
+        if (!filmStorage.checkIfFilmExists(filmId) || !userStorage.checkIfUserExists(userId)) {
+            log.warn("FilmID or UserID does not exists!");
+            throw new ObjectNotFoundException("FilmID or UserID does not exists!");
+        } else {
+            filmStorage.deleteFilmsLike(filmId, userId);
+        }
     }
 
     public Film GetFilmFromId(long id) {
