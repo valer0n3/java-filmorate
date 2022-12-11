@@ -127,11 +127,11 @@ public class FilmDbStorage implements FilmStorage {
                 "join GENRE as genre " +
                 "on filmgenre.GENRE_ID = genre.GENRE_ID " +
                 "where filmgenre.FILM_ID = ?";
-        List<Genre> gl = jdbcTemplate.query(sqlQuerySelectFilmGenre,
+        List<Genre> genreList = jdbcTemplate.query(sqlQuerySelectFilmGenre,
                 (resultSet, rowNumber) ->
                         new Genre(resultSet.getLong("GENRE.GENRE_ID"),
                                 resultSet.getString(("GENRE.NAME"))), film_id);
-        return gl;
+        return genreList;
     }
 
     @Override
