@@ -19,4 +19,5 @@ public interface UserStorage {
     void deleteFriend(User user, User friendUser);
 
     Set<Long> getFriendList(User user);
+    public boolean checkIfUserExists(long userId);
 }
