@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class InMemoryUserStorage implements UserStorage {
+public class userStorage implements UserStorage {
     private final Map<Long, User> userMap = new HashMap<>();
     private int counter = 0;
     private final static Logger log = LoggerFactory.getLogger(UserController.class);

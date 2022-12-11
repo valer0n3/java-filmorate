@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.controller.UserController;
+import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import javax.validation.ValidationException;
@@ -19,8 +19,8 @@ public class UserValidationService {
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public UserValidationService(UserStorage inMemoryUserStorage) {
-        this.userStorage = inMemoryUserStorage;
+    public UserValidationService(UserStorage userStorage) {
+        this.userStorage = userStorage;
     }
 
     public User saveNewUser(User user) {
@@ -35,7 +35,12 @@ public class UserValidationService {
     }
 
     public User updateUser(User user) {
-        return userStorage.updateUser(user);
+        if (!userStorage.checkIfUserExists(user.getId())) {
+            log.warn("Film id does not exists!");
+            throw new ObjectNotFoundException("Film object is not existed");
+        } else {
+            return userStorage.updateUser(user);
+        }
     }
 
     public List<User> getAllUsers() {
