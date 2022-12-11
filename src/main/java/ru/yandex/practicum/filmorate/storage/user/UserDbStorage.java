@@ -95,7 +95,7 @@ public class UserDbStorage implements UserStorage {
     }
 
     @Override
-    public Set<Long> getFriendList(User user) {
+    public List<User> getFriendList(long id) {
         return null;
     }
 

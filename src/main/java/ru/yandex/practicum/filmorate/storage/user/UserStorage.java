@@ -19,7 +19,7 @@ public interface UserStorage {
 
     void deleteFriend(long id, long friendID);
 
-    Set<Long> getFriendList(User user);
+    List<User> getFriendList(long id);
 
     boolean checkIfUserExists(long userId);
 

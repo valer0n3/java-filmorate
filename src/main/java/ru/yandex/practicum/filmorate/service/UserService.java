@@ -9,9 +9,7 @@ import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,7 +48,12 @@ public class UserService {
     }
 
     public List<User> getFriendsList(long id) {
-        User user = userStorage.getUserById(id);
+        if (!userStorage.checkIfUserExists(id)) {
+            log.warn("User or Friend object is not existed!");
+            throw new ObjectNotFoundException("User or Friend object is not existed!");
+        }
+        return userStorage.getFriendList(id);
+        /*User user = userStorage.getUserById(id);
         checkIfUserObjectIsNull(user);
         Set<Long> setOfFriends = userStorage.getFriendList(user);
         List<User> listOfFriends = new ArrayList<>();
@@ -60,7 +63,7 @@ public class UserService {
                 listOfFriends.add(friend);
             }
         }
-        return listOfFriends;
+        return listOfFriends;*/
     }
 
     public List<User> getCommonList(long id, long otherId) {
