@@ -5,11 +5,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -63,7 +64,16 @@ public class UserDbStorage implements UserStorage {
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        String sqlQueryUsersSelect = "select * from USERS";
+        return jdbcTemplate.query(sqlQueryUsersSelect, (resultSet, rowNumber) -> mapRowToUser(resultSet));
+    }
+
+    private User mapRowToUser(ResultSet resultSet) throws SQLException {
+        return new User(resultSet.getLong("USERS_ID"),
+                resultSet.getString("EMAIL"),
+                resultSet.getString("LOGIN"),
+                resultSet.getString("NAME"),
+                resultSet.getDate("BIRTHDAY").toLocalDate());
     }
 
     @Override
@@ -84,7 +94,6 @@ public class UserDbStorage implements UserStorage {
         String sqlQueryUserSelect = "select count(*) from USERS where USERS_ID = ?";
         int result = jdbcTemplate.queryForObject(
                 sqlQueryUserSelect, Integer.class, userId);
-        System.out.println("************ " + result);
         if (result == 1) {
             return true;
         } else {
