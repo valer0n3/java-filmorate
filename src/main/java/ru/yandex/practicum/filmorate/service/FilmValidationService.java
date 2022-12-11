@@ -8,6 +8,7 @@ import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import javax.validation.ValidationException;
 import java.time.LocalDate;
@@ -18,10 +19,12 @@ public class FilmValidationService {
     private final static LocalDate EARLIEST_RELEASE_DATE = LocalDate.parse("1895-12-28");
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
     private final FilmStorage filmStorage;
+    private final UserStorage userStorage;
 
     @Autowired
-    public FilmValidationService(FilmStorage filmStorage) {
+    public FilmValidationService(FilmStorage filmStorage, UserStorage userStorage) {
         this.filmStorage = filmStorage;
+        this.userStorage = userStorage;
     }
 
     public Film saveNewFilm(Film film) {
@@ -34,7 +37,7 @@ public class FilmValidationService {
     public Film updateFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
-        if (!filmStorage.checkIfFilmExists(film.getId())) {
+        if (!filmStorage.checkIfFilmExists(film.getId()) ) {
             log.warn("Film id does not exists!");
             throw new ObjectNotFoundException("Film object is not existed");
         } else {
