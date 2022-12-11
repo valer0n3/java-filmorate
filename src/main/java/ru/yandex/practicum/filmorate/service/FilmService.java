@@ -29,9 +29,9 @@ public class FilmService {
 
     public void likeFilm(long filmId, long userId) {
         //  filmStorage.likeFilm(GetFilmFromId(filmId), GetUserFromId(userId));
-        if (!filmStorage.checkIfFilmExists(filmId)) { //TODO add checkIfUserNotExists
-            log.warn("Film id does not exists!");
-            throw new ObjectNotFoundException("Film object is not existed");
+        if (!filmStorage.checkIfFilmExists(filmId) || !userStorage.checkIfUserExists(userId)) { //TODO add checkIfUserNotExists
+            log.warn("FilmID or UserID does not exists!");
+            throw new ObjectNotFoundException("FilmID or UserID does not exists!");
         } else {
             filmStorage.likeFilm(filmId, userId);
             // checkIfFilmObjectIsNull(likedFilm);
@@ -56,11 +56,11 @@ public class FilmService {
         }
     }
 
-    public User GetUserFromId(long id) {
+/*    public User GetUserFromId(long id) {
         User user = userStorage.getUserById(id);
         checkIfUserObjectExists(user);
         return user;
-    }
+    }*/
 
     public List<Film> getTopLikedMovies(Integer count) {
         count = checkIfCountIsAllowedValue(count);
