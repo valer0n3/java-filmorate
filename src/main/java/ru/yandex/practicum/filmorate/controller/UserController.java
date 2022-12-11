@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllFilms() {
+    public List<User> getAllUsers() {
         return userValidationService.getAllUsers();
     }
 
