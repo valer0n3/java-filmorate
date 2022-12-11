@@ -102,6 +102,16 @@ public class UserDbStorage implements UserStorage {
     }
 
     @Override
+    public List<User> getCommonFriendList(long id, long otherId) {
+        String sqlQueryCommonUsersSelect = "select fr.*, us.*" +
+                " from FRINDSHIP as fr inner join USERS as us on fr.SOURCE_USERS_ID = us.USERS_ID" +
+                " where TARGET_USERS_ID = ? and SOURCE_USERS_ID " +
+                "IN (select SOURCE_USERS_ID from FRINDSHIP where TARGET_USERS_ID = ?)";
+        return jdbcTemplate.query(sqlQueryCommonUsersSelect,
+                (resultSet, rowNumber) -> mapRowToUser(resultSet), id, otherId);
+    }
+
+    @Override
     public boolean checkIfUserExists(long userId) {
         String sqlQueryUserSelect = "select count(*) from USERS where USERS_ID = ?";
         int result = jdbcTemplate.queryForObject(

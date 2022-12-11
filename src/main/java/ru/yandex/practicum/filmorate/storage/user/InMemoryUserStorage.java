@@ -68,6 +68,11 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
+    public List<User> getCommonFriendList(long id, long otherId) {
+        return null;
+    }
+
+    @Override
     public boolean checkIfUserExists(long userId) {
         return false;
     }

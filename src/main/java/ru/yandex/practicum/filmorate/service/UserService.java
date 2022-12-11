@@ -56,15 +56,12 @@ public class UserService {
     }
 
     public List<User> getCommonList(long id, long otherId) {
-        checkIfIdsAreNotEqual(id, otherId);
-        User user = userStorage.getUserById(id);
-        User userFriend = userStorage.getUserById(otherId);
-        checkIfUserObjectIsNull(user);
-        checkIfUserObjectIsNull(userFriend);
-        return user.getSetOfFriends().stream()
-                .filter(commonId -> userFriend.getSetOfFriends().contains(commonId)).
-                map(userStorage::getUserById).
-                collect(Collectors.toList());
+        if (!userStorage.checkIfUserExists(id) || !userStorage.checkIfUserExists(otherId)) {
+            log.warn("User or Friend object is not existed!");
+            throw new ObjectNotFoundException("User or Friend object is not existed!");
+        }
+        return userStorage.getCommonFriendList(id, otherId);
+
     }
 
     public User getUserById(long id) {
