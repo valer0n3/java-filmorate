@@ -19,4 +19,6 @@ public interface FilmStorage {
     void deleteFilmsLike(long filmID, long userID);
 
      boolean checkIfFilmExists(long filmId);
+
+     List<Film> getTopLikedFilms(int count);
 }

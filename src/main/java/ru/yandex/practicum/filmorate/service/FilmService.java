@@ -63,12 +63,14 @@ public class FilmService {
         return user;
     }*/
 
-    public List<Film> getTopLikedMovies(Integer count) {
+    public List<Film> getTopLikedFilms(Integer count) {
         count = checkIfCountIsAllowedValue(count);
-        return filmStorage.getAllFilms().stream()
+        return filmStorage.getTopLikedFilms(count);
+
+              /*  stream()
                 .sorted((o1, o2) -> o2.setOfLikes.size() - o1.setOfLikes.size())
                 .limit(count)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
     }
 
 /*    public Film getFilmById(long id) {

@@ -65,6 +65,11 @@ public class InMemoryFilmStorage implements FilmStorage {
         return false;
     }
 
+    @Override
+    public List<Film> getTopLikedFilms(int count) {
+        return null;
+    }
+
     private boolean checkIfFilmIdExists(long id) {
         return filmMap.containsKey(id);
     }

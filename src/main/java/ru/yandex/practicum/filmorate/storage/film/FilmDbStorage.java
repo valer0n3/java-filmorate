@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.MPA;
-import ru.yandex.practicum.filmorate.model.User;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -145,8 +144,8 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public void likeFilm(long filmID, long userID) {
-        String sqlQueryLikesDelete = "delete from LIKES where FILM_ID = ?";
-        jdbcTemplate.update(sqlQueryLikesDelete, filmID);
+        String sqlQueryLikesDelete = "delete from LIKES where FILM_ID = ? and USER_ID = ?";
+        jdbcTemplate.update(sqlQueryLikesDelete, filmID, userID);
         String sqlQueryLikesInsert = "insert into LIKES(FILM_ID, USER_ID) values(?, ?)";
         jdbcTemplate.update(sqlQueryLikesInsert, filmID, userID);
     }
@@ -156,4 +155,21 @@ public class FilmDbStorage implements FilmStorage {
         String sqlQueryLikeDelete = "delete from LIKES where FILM_ID = ? and USER_ID = ?";
         jdbcTemplate.update(sqlQueryLikeDelete, filmID, userID);
     }
+
+   @Override
+    public List<Film> getTopLikedFilms(int count) {
+        String sqlQuerySelectFilmByID = "select  count(film.FILM_ID) as countfilms," +
+                " film.*," +
+                " M.*," +
+                " likes.FILM_ID" +
+                " from FILM as film" +
+                " inner join LIKES likes on film.FILM_ID = likes.FILM_ID" +
+                " inner join MPA M on film.MPA_ID = M.MPA_ID" +
+                " GROUP BY Film.FILM_ID ORDER BY countfilms" +
+                " DESC LIMIT ?";
+
+        return jdbcTemplate.query(sqlQuerySelectFilmByID,
+                (resultSet, rowNumber) -> mapRowToFilm(resultSet), count);
+    }
+
 }
