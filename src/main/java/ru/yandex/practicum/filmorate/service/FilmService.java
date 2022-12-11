@@ -53,11 +53,11 @@ public class FilmService {
                 .collect(Collectors.toList());
     }
 
-    public Film getFilmById(long id) {
+/*    public Film getFilmById(long id) {
         Film likedFilm = filmStorage.getFilmByID(id);
         checkIfFilmObjectIsNull(likedFilm);
         return likedFilm;
-    }
+    }*/
 
     private int checkIfCountIsAllowedValue(Integer count) {
         if (count == null) {
