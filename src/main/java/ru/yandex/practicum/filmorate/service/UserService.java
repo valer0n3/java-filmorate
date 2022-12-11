@@ -1,6 +1,9 @@
 package ru.yandex.practicum.filmorate.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.exception.IncorrectInputException;
 import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
     final UserStorage userStorage;
+    private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     public UserService(UserStorage userStorage) {
         this.userStorage = userStorage;
@@ -64,9 +68,13 @@ public class UserService {
     }
 
     public User getUserById(long id) {
-        User user = userStorage.getUserById(id);
-        checkIfUserObjectIsNull(user);
-        return user;
+        if (!userStorage.checkIfUserExists(id)) {
+            log.warn("User id does not exist!");
+            throw new ObjectNotFoundException("User object does not exist!");
+        } else {
+            // checkIfFilmObjectIsNull(likedFilm);
+            return userStorage.getUserById(id);
+        }
     }
 
     private void checkIfIdsAreNotEqual(long id, long friendId) {

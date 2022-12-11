@@ -42,7 +42,9 @@ public class UserDbStorage implements UserStorage {
 
     @Override
     public User getUserById(long id) {
-        return null;
+        String sqlQueryUsersSelect = "select * from USERS where USERS_ID = ?";
+        return jdbcTemplate.queryForObject(sqlQueryUsersSelect,
+                (resultSet, rowNumber) -> mapRowToUser(resultSet), id);
     }
 
     @Override
