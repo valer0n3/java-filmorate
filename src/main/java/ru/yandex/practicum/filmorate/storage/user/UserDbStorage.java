@@ -95,8 +95,8 @@ public class UserDbStorage implements UserStorage {
     public List<User> getFriendList(long id) {
         String sqlQueryUsersSelect = "select fr.*, us.* " +
                 "from FRINDSHIP as fr " +
-                "inner join USERS us on fr.SOURCE_USERS_ID = us.USERS_ID " +
-                "where TARGET_USERS_ID = ?";
+                "inner join USERS us on fr.TARGET_USERS_ID = us.USERS_ID " +
+                "where SOURCE_USERS_ID = ?";
         return jdbcTemplate.query(sqlQueryUsersSelect,
                 (resultSet, rowNumber) -> mapRowToUser(resultSet), id);
     }
@@ -104,9 +104,9 @@ public class UserDbStorage implements UserStorage {
     @Override
     public List<User> getCommonFriendList(long id, long otherId) {
         String sqlQueryCommonUsersSelect = "select fr.*, us.*" +
-                " from FRINDSHIP as fr inner join USERS as us on fr.SOURCE_USERS_ID = us.USERS_ID" +
-                " where TARGET_USERS_ID = ? and SOURCE_USERS_ID " +
-                "IN (select SOURCE_USERS_ID from FRINDSHIP where TARGET_USERS_ID = ?)";
+                " from FRINDSHIP as fr inner join USERS as us on fr.TARGET_USERS_ID = us.USERS_ID" +
+                " where SOURCE_USERS_ID = ? and TARGET_USERS_ID " +
+                "IN (select TARGET_USERS_ID from FRINDSHIP where SOURCE_USERS_ID = ?)";
         return jdbcTemplate.query(sqlQueryCommonUsersSelect,
                 (resultSet, rowNumber) -> mapRowToUser(resultSet), id, otherId);
     }

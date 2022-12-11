@@ -26,6 +26,7 @@ public class FilmValidationService {
         this.filmStorage = filmStorage;
         this.userStorage = userStorage;
     }
+//TODO add validation for genre duplicates stream remove duplicates
 
     public Film saveNewFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
