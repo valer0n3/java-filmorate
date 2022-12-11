@@ -8,7 +8,7 @@ import java.util.List;
 public interface MpaStorage {
     List<Mpa> getAllMpa();
 
-    Genre getMpaById(long id);
+    Mpa getMpaById(long id);
 
     boolean checkIfMpaExists(long id);
 }
