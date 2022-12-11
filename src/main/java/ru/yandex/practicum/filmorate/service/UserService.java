@@ -53,17 +53,6 @@ public class UserService {
             throw new ObjectNotFoundException("User or Friend object is not existed!");
         }
         return userStorage.getFriendList(id);
-        /*User user = userStorage.getUserById(id);
-        checkIfUserObjectIsNull(user);
-        Set<Long> setOfFriends = userStorage.getFriendList(user);
-        List<User> listOfFriends = new ArrayList<>();
-        for (Long friendsId : setOfFriends) {
-            User friend = userStorage.getUserById(friendsId);
-            if (friend != null) {
-                listOfFriends.add(friend);
-            }
-        }
-        return listOfFriends;*/
     }
 
     public List<User> getCommonList(long id, long otherId) {

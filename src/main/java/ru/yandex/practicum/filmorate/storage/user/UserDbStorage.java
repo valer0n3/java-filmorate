@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public class UserDbStorage implements UserStorage {
@@ -85,8 +84,6 @@ public class UserDbStorage implements UserStorage {
         jdbcTemplate.update(sqlQueryFriendshipInsert, id, friendID);
     }
 
-
-
     @Override
     public void deleteFriend(long id, long friendID) {
         String sqlQueryFriendshipDelete = "delete from FRINDSHIP " +
@@ -96,7 +93,12 @@ public class UserDbStorage implements UserStorage {
 
     @Override
     public List<User> getFriendList(long id) {
-        return null;
+        String sqlQueryUsersSelect = "select fr.*, us.* " +
+                "from FRINDSHIP as fr " +
+                "inner join USERS us on fr.SOURCE_USERS_ID = us.USERS_ID " +
+                "where TARGET_USERS_ID = ?";
+        return jdbcTemplate.query(sqlQueryUsersSelect,
+                (resultSet, rowNumber) -> mapRowToUser(resultSet), id);
     }
 
     @Override
