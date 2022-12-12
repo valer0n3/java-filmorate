@@ -13,6 +13,7 @@ import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 import javax.validation.ValidationException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FilmValidationService {
@@ -31,6 +32,7 @@ public class FilmValidationService {
     public Film saveNewFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
+        DeleteDuplicatedGenres(film);
         filmStorage.saveNewFilm(film);
         return film;
     }
@@ -38,6 +40,8 @@ public class FilmValidationService {
     public Film updateFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
+        DeleteDuplicatedGenres(film);
+        System.out.println("***_____*: " + film.getGenres());
         if (!filmStorage.checkIfFilmExists(film.getId())) {
             log.warn("Film id does not exists!");
             throw new ObjectNotFoundException("Film object is not existed");
@@ -61,6 +65,14 @@ public class FilmValidationService {
         if (duration <= 0) {
             log.warn("Movie's duration can not be less than 0");
             throw new ValidationException("Movie's duration can not be less than 0");
+        }
+    }
+
+    private void DeleteDuplicatedGenres(Film film) {
+        if (film.getGenres() != null) {
+            film.setGenres(film.getGenres().stream()
+                    .distinct()
+                    .collect(Collectors.toList()));
         }
     }
 }
