@@ -156,14 +156,27 @@ public class FilmDbStorage implements FilmStorage {
         jdbcTemplate.update(sqlQueryLikeDelete, filmID, userID);
     }
 
+   /* @Override
+    public List<Film> getTopLikedFilms(int count) {
+        String sqlQuerySelectFilmByID = "select  count(film.FILM_ID) as countfilms," +
+                " film.*, M.*, likes.FILM_ID" +
+                " from FILM as film" +
+                " left join LIKES likes on film.FILM_ID = likes.FILM_ID" +
+                " inner join MPA M on film.MPA_ID = M.MPA_ID" +
+                " GROUP BY Film.FILM_ID ORDER BY countfilms, likes.FILM_ID" +
+                " DESC LIMIT ?";
+        return jdbcTemplate.query(sqlQuerySelectFilmByID,
+                (resultSet, rowNumber) -> mapRowToFilm(resultSet), count);
+    }*/
+
     @Override
     public List<Film> getTopLikedFilms(int count) {
         String sqlQuerySelectFilmByID = "select  count(film.FILM_ID) as countfilms," +
                 " film.*, M.*, likes.FILM_ID" +
                 " from FILM as film" +
-                " inner join LIKES likes on film.FILM_ID = likes.FILM_ID" +
+                " left join LIKES likes on film.FILM_ID = likes.FILM_ID" +
                 " inner join MPA M on film.MPA_ID = M.MPA_ID" +
-                " GROUP BY Film.FILM_ID ORDER BY countfilms" +
+                " GROUP BY Film.FILM_ID ORDER BY countfilms, likes.FILM_ID" +
                 " DESC LIMIT ?";
         return jdbcTemplate.query(sqlQuerySelectFilmByID,
                 (resultSet, rowNumber) -> mapRowToFilm(resultSet), count);
