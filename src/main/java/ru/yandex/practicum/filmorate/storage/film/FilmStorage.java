@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.storage.film;
 
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public interface FilmStorage {
 
     void deleteFilmsLike(long filmID, long userID);
 
-     boolean checkIfFilmExists(long filmId);
+    boolean checkIfFilmExists(long filmId);
 
-     List<Film> getTopLikedFilms(int count);
+    List<Film> getTopLikedFilms(int count);
 }

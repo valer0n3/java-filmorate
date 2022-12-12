@@ -45,6 +45,4 @@ public class Film {
     @EqualsAndHashCode.Include
     @JsonIgnore
     public Set<Long> setOfLikes = new HashSet<>();
-
-
 }

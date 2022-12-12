@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate.storage.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.model.User;
 
@@ -11,8 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 
 public class InMemoryUserStorage implements UserStorage {
     private final Map<Long, User> userMap = new HashMap<>();
@@ -57,8 +54,8 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public void deleteFriend(long id, long friendID) {
-       // user.getSetOfFriends().remove(friendUser.getId());
-       // friendUser.getSetOfFriends().remove(user.getId());
+        // user.getSetOfFriends().remove(friendUser.getId());
+        // friendUser.getSetOfFriends().remove(user.getId());
     }
 
     @Override

@@ -2,17 +2,14 @@ package ru.yandex.practicum.filmorate.storage.film;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class InMemoryFilmStorage implements FilmStorage {
     private final Map<Long, Film> filmMap = new HashMap<>();
@@ -52,12 +49,12 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public void likeFilm(long filmID, long userID) {
-       // film.setOfLikes.add(user.getId());
+        // film.setOfLikes.add(user.getId());
     }
 
     @Override
     public void deleteFilmsLike(long filmID, long userID) {
-       // film.setOfLikes.remove(user.getId());
+        // film.setOfLikes.remove(user.getId());
     }
 
     @Override

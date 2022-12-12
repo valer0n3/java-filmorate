@@ -27,7 +27,6 @@ class UserDbStorageTest {
         String sqlRequest1 = "ALTER TABLE USERS ALTER COLUMN USERS_ID RESTART WITH 1";
         jdbcTemplate.update(sqlRequest);
         jdbcTemplate.update(sqlRequest1);
-
         User testUser = new User(1L, "test@email.ru", "testLogin",
                 "testName", LocalDate.of(2010, 10, 24));
         userStorage.saveNewUser(testUser);
