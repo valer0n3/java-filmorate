@@ -171,7 +171,7 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public List<Film> getTopLikedFilms(int count) {
-        String sqlQuerySelectFilmByID = "select  count(film.FILM_ID) as countfilms," +
+        @SuppressWarnings("SqlAggregates") String sqlQuerySelectFilmByID = "select  count(film.FILM_ID) as countfilms," +
                 " film.*, M.*, likes.FILM_ID" +
                 " from FILM as film" +
                 " left join LIKES likes on film.FILM_ID = likes.FILM_ID" +
