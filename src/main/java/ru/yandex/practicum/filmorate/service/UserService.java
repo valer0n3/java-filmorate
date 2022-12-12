@@ -67,7 +67,6 @@ public class UserService {
             log.warn("User id does not exist!");
             throw new ObjectNotFoundException("User object does not exist!");
         } else {
-
             return userStorage.getUserById(id);
         }
     }
@@ -75,12 +74,6 @@ public class UserService {
     private void checkIfIdsAreNotEqual(long id, long friendId) {
         if (id == friendId) {
             throw new IncorrectInputException("Id's can't be equals!");
-        }
-    }
-
-    public void checkIfUserObjectIsNull(User user) {
-        if (user == null) {
-            throw new ObjectNotFoundException("User's id does not exist");
         }
     }
 }

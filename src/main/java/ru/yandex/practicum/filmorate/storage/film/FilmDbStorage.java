@@ -91,11 +91,7 @@ public class FilmDbStorage implements FilmStorage {
         String sqlQueryFilmSelect = "select count(*) from FILM where FILM_ID = ?";
         int result = jdbcTemplate.queryForObject(
                 sqlQueryFilmSelect, Integer.class, filmId);
-        if (result == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return result == 1;
     }
 
     @Override

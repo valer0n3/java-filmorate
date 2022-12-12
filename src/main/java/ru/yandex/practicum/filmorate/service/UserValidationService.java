@@ -30,7 +30,6 @@ public class UserValidationService {
             log.warn("User name is empty. Login will be used as user name.");
         }
         userStorage.saveNewUser(user);
-
         return user;
     }
 

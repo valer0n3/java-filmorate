@@ -116,11 +116,7 @@ public class UserDbStorage implements UserStorage {
         String sqlQueryUserSelect = "select count(*) from USERS where USERS_ID = ?";
         int result = jdbcTemplate.queryForObject(
                 sqlQueryUserSelect, Integer.class, userId);
-        if (result == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return result == 1;
     }
 
     @Override
@@ -130,10 +126,6 @@ public class UserDbStorage implements UserStorage {
                 "where SOURCE_USERS_ID = ? and TARGET_USERS_ID = ?";
         int result = jdbcTemplate.queryForObject(
                 sqlQueryFriendshipSelect, Integer.class, id, friendID);
-        if (result == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return result == 1;
     }
 }

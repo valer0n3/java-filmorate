@@ -41,7 +41,7 @@ class UserDbStorageTest {
         String sqlInsert = "insert into USERS(EMAIL, LOGIN, NAME, BIRTHDAY) " +
                 "values (?, ?, ?, ?)";
         jdbcTemplate.update(sqlInsert, "test3@email.ru", "test3Login",
-                "test3Name", LocalDate.of(2000, 05, 10));
+                "test3Name", LocalDate.of(2000, 5, 10));
         User savedUser = userStorage.getUserById(3);
         assertThat(savedUser).hasFieldOrPropertyWithValue("id", 3L)
                 .hasFieldOrPropertyWithValue("login", "test3Login");
@@ -59,7 +59,7 @@ class UserDbStorageTest {
                 "updatedMail@email.ru",
                 "updatedLogin",
                 "updatedName",
-                LocalDate.of(2020, 06, 10),
+                LocalDate.of(2020, 6, 10),
                 2);
         User updatedUser = userStorage.getUserById(2);
         assertEquals("updatedMail@email.ru", updatedUser.getEmail(), "Email is incorrect");
