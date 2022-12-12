@@ -24,7 +24,7 @@ class UserDbStorageTest {
     @BeforeEach
     public void beforeEach() {
         String sqlRequest = "delete  from USERS";
-        String sqlRequest1 = "ALTER TABLE USERS ALTER COLUMN USERS_ID RESTART WITH 1";
+        String sqlRequest1 = "alter table USERS alter column USERS_ID restart with 1";
         jdbcTemplate.update(sqlRequest);
         jdbcTemplate.update(sqlRequest1);
         User testUser = new User(1L, "test@email.ru", "testLogin",
