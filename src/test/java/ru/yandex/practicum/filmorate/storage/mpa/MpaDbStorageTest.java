@@ -7,9 +7,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.model.Mpa;
 
+
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,11 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @AutoConfigureTestDatabase
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 class MpaDbStorageTest {
-    private final MpaDbStorage mpaDbStorage;
+    private final MpaStorage mpaDbStorage;
 
     @Test
     void getAllMpa() {
-        mpaDbStorage.getAllMpa();
         List<Mpa> listOfMpa = mpaDbStorage.getAllMpa();
         assertEquals(5, listOfMpa.size(), "List size of Mpa's is not correct!");
         assertThat(listOfMpa.get(0)).hasFieldOrPropertyWithValue("id", 1L)
@@ -41,6 +41,6 @@ class MpaDbStorageTest {
     @Test
     void checkIfMpaExists() {
         assertTrue(mpaDbStorage.checkIfMpaExists(4), "Mpa is not existed, but should exist!");
-        assertFalse(mpaDbStorage.checkIfMpaExists(-1), "Mpa exists, but should not.");
+        assertFalse(mpaDbStorage.checkIfMpaExists(-1), "Mpa is existed, but should not.");
     }
 }
