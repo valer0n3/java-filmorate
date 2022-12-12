@@ -67,7 +67,7 @@ public class UserService {
             log.warn("User id does not exist!");
             throw new ObjectNotFoundException("User object does not exist!");
         } else {
-            // checkIfFilmObjectIsNull(likedFilm);
+
             return userStorage.getUserById(id);
         }
     }

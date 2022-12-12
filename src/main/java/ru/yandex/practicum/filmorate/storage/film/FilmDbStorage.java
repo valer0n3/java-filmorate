@@ -51,7 +51,6 @@ public class FilmDbStorage implements FilmStorage {
             }
         }
         return film;
-        //TODO check that genre ID or Mpa id is within range 1-3
     }
 
     @Override
@@ -74,13 +73,11 @@ public class FilmDbStorage implements FilmStorage {
             String sqlQueryGenresDelete = "delete from FILM_GENRE where FILM_ID = ?";
             jdbcTemplate.update(sqlQueryGenresDelete, film.getId());
             String sqlQueryGenresInsert = "insert into FILM_GENRE(FILM_ID, GENRE_ID) values(?, ?)";
-            //TODO add check if genre exists otherwise we will have NPE; try to add append or batch
             for (Genre genre : film.getGenres()) {
                 jdbcTemplate.update(sqlQueryGenresInsert, film.getId(), genre.getId());
             }
         }
         return film;
-        //TODO add check if a film exists or not
     }
 
     private Long checkIfMPANotNull(Film film) {
@@ -155,19 +152,6 @@ public class FilmDbStorage implements FilmStorage {
         String sqlQueryLikeDelete = "delete from LIKES where FILM_ID = ? and USER_ID = ?";
         jdbcTemplate.update(sqlQueryLikeDelete, filmID, userID);
     }
-
-   /* @Override
-    public List<Film> getTopLikedFilms(int count) {
-        String sqlQuerySelectFilmByID = "select  count(film.FILM_ID) as countfilms," +
-                " film.*, M.*, likes.FILM_ID" +
-                " from FILM as film" +
-                " left join LIKES likes on film.FILM_ID = likes.FILM_ID" +
-                " inner join MPA M on film.MPA_ID = M.MPA_ID" +
-                " GROUP BY Film.FILM_ID ORDER BY countfilms, likes.FILM_ID" +
-                " DESC LIMIT ?";
-        return jdbcTemplate.query(sqlQuerySelectFilmByID,
-                (resultSet, rowNumber) -> mapRowToFilm(resultSet), count);
-    }*/
 
     @Override
     public List<Film> getTopLikedFilms(int count) {
