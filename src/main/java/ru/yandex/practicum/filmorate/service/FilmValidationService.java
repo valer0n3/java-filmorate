@@ -33,7 +33,6 @@ public class FilmValidationService {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
         DeleteDuplicatedGenres(film);
-        System.out.println("***_____*: " + film.getGenres());
         if (!filmStorage.checkIfFilmExists(film.getId())) {
             log.warn("Film id does not exists!");
             throw new ObjectNotFoundException("Film object is not existed");

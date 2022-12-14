@@ -40,7 +40,6 @@ public class UserValidationService {
 
     public List<User> getAllUsers() {
         List<User> us = userStorage.getAllUsers();
-        System.out.println(us);
         return us;
     }
 
