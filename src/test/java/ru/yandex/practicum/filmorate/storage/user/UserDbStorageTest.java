@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,14 +42,11 @@ class UserDbStorageTest {
     }
 
     @Test
-    void testTest() {
+    void saveFriendShouldReturn2() {
         userStorage.saveFriend(1, 2);
         userStorage.saveFriend(2, 1);
-        userStorage.getFriendList(1);
-    }
-
-    @Test
-    void testTest2() {
+        List<User> friendList = userStorage.getFriendList(1);
+        assertEquals(2, friendList.get(0).getId(), "Friend Id is incorrect");
     }
 
     @Test
