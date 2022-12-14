@@ -1,8 +1,8 @@
 package ru.yandex.practicum.filmorate.service;
 
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.exception.IncorrectInputException;
@@ -14,16 +14,11 @@ import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class FilmService {
     private final FilmStorage filmStorage;
     final UserStorage userStorage;
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
-
-    @Autowired
-    public FilmService(FilmStorage filmStorage, UserStorage userStorage) {
-        this.filmStorage = filmStorage;
-        this.userStorage = userStorage;
-    }
 
     public void likeFilm(long filmId, long userId) {
         if (!filmStorage.checkIfFilmExists(filmId) || !userStorage.checkIfUserExists(userId)) {

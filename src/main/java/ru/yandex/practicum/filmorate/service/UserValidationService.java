@@ -1,8 +1,8 @@
 package ru.yandex.practicum.filmorate.service;
 
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.exception.ObjectNotFoundException;
@@ -14,14 +14,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
+@AllArgsConstructor
 public class UserValidationService {
     private final UserStorage userStorage;
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
-
-    @Autowired
-    public UserValidationService(UserStorage userStorage) {
-        this.userStorage = userStorage;
-    }
 
     public User saveNewUser(User user) {
         checkLogin(user.getLogin());
