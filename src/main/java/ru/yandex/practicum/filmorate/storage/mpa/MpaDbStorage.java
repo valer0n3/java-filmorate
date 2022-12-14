@@ -36,6 +36,6 @@ public class MpaDbStorage implements MpaStorage {
     public boolean checkIfMpaExists(long id) {
         String sqlQuery = "select * from MPA where MPA_ID = ?";
         SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet(sqlQuery, id);
-        return (sqlRowSet.next());
+        return sqlRowSet.next();
     }
 }

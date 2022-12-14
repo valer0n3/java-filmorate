@@ -36,6 +36,6 @@ public class GenreDbStorage implements GenreStorage {
     public boolean checkIfGenreExists(long id) {
         String sqlQuery = "select * from GENRE where GENRE_ID = ?";
         SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet(sqlQuery, id);
-        return (sqlRowSet.next());
+        return sqlRowSet.next();
     }
 }
