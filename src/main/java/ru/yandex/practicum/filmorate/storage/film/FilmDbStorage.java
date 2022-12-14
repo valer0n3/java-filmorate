@@ -95,8 +95,7 @@ public class FilmDbStorage implements FilmStorage {
         String sqlQueryFilmsSelect = "select * from FILM as film" +
                 " inner join MPA as mpa" +
                 " ON film.MPA_ID = mpa.MPA_ID";
-        List<Film> listOfFilms = jdbcTemplate.query(sqlQueryFilmsSelect, (resultSet, rowNumber) -> mapRowToFilm(resultSet));
-        return listOfFilms;
+        return jdbcTemplate.query(sqlQueryFilmsSelect, (resultSet, rowNumber) -> mapRowToFilm(resultSet));
     }
 
     private Film mapRowToFilm(ResultSet resultSet) throws SQLException {
@@ -115,11 +114,10 @@ public class FilmDbStorage implements FilmStorage {
                 "join GENRE as genre " +
                 "on filmgenre.GENRE_ID = genre.GENRE_ID " +
                 "where filmgenre.FILM_ID = ?";
-        List<Genre> genreList = jdbcTemplate.query(sqlQuerySelectFilmGenre,
+        return genreList = jdbcTemplate.query(sqlQuerySelectFilmGenre,
                 (resultSet, rowNumber) ->
                         new Genre(resultSet.getLong("GENRE.GENRE_ID"),
-                                resultSet.getString(("GENRE.NAME"))), film_id);
-        return genreList;
+                                resultSet.getString("GENRE.NAME")), film_id);
     }
 
     @Override
