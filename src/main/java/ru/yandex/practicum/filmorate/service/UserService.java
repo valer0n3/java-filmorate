@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class UserService {
-    final UserStorage userStorage;
+    private final UserStorage userStorage;
     private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     public UserService(UserStorage userStorage) {
