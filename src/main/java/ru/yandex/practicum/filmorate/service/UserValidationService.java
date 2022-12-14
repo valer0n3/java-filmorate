@@ -39,8 +39,7 @@ public class UserValidationService {
     }
 
     public List<User> getAllUsers() {
-        List<User> us = userStorage.getAllUsers();
-        return us;
+        return userStorage.getAllUsers();
     }
 
     void checkLogin(String login) {
