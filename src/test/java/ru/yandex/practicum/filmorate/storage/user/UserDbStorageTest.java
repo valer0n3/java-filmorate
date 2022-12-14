@@ -40,16 +40,15 @@ class UserDbStorageTest {
                 "test2Name", LocalDate.of(2010, 10, 24));
     }
 
-
     @Test
     void testTest() {
         userStorage.saveFriend(1, 2);
         userStorage.saveFriend(2, 1);
         userStorage.getFriendList(1);
     }
+
     @Test
     void testTest2() {
-
     }
 
     @Test
