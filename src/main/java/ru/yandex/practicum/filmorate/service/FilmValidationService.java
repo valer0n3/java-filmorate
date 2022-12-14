@@ -24,7 +24,7 @@ public class FilmValidationService {
     public Film saveNewFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
-        DeleteDuplicatedGenres(film);
+        deleteDuplicatedGenres(film);
         filmStorage.saveNewFilm(film);
         return film;
     }
@@ -32,7 +32,7 @@ public class FilmValidationService {
     public Film updateFilm(Film film) {
         checkReleaseDate(film.getReleaseDate());
         checkFilmDuration(film.getDuration());
-        DeleteDuplicatedGenres(film);
+        deleteDuplicatedGenres(film);
         if (!filmStorage.checkIfFilmExists(film.getId())) {
             log.warn("Film id does not exists!");
             throw new ObjectNotFoundException("Film object is not existed");
@@ -59,7 +59,7 @@ public class FilmValidationService {
         }
     }
 
-    private void DeleteDuplicatedGenres(Film film) {
+    private void deleteDuplicatedGenres(Film film) {
         if (film.getGenres() != null) {
             film.setGenres(film.getGenres().stream()
                     .distinct()
