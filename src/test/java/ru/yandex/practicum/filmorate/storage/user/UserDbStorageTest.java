@@ -23,11 +23,11 @@ class UserDbStorageTest {
 
     @BeforeEach
     public void beforeEach() {
-        String sqlRequest3 = "delete  from FRINDSHIP";
+        String sqlRequest3 = "delete from FRINDSHIP";
         String sqlRequest4 = "alter table FRINDSHIP alter column FRINDSHIP_ID restart with 1";
         jdbcTemplate.update(sqlRequest3);
         jdbcTemplate.update(sqlRequest4);
-        String sqlRequest = "delete  from USERS";
+        String sqlRequest = "delete from USERS";
         String sqlRequest1 = "alter table USERS alter column USERS_ID restart with 1";
         jdbcTemplate.update(sqlRequest);
         jdbcTemplate.update(sqlRequest1);
