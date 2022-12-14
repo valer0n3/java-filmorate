@@ -21,7 +21,7 @@ class GenreDbStorageTest {
     private final GenreStorage genreStorage;
 
     @Test
-    void getAllGenres() {
+    public void getAllGenres() {
         List<Genre> listOfGenre = genreStorage.getAllGenres();
         assertEquals(6, listOfGenre.size(), "List size of Genre's is not correct!");
         assertThat(listOfGenre.get(0)).hasFieldOrPropertyWithValue("id", 1L)
@@ -31,14 +31,14 @@ class GenreDbStorageTest {
     }
 
     @Test
-    void getGenreById() {
+    public void getGenreById() {
         Genre genre = genreStorage.getGenreById(3);
         assertThat(genre).hasFieldOrPropertyWithValue("id", 3L)
                 .hasFieldOrPropertyWithValue("name", "Мультфильм");
     }
 
     @Test
-    void checkIfGenreExists() {
+    public void checkIfGenreExists() {
         assertTrue(genreStorage.checkIfGenreExists(4), "Genre is not existed, but should exist!");
         assertFalse(genreStorage.checkIfGenreExists(-1), "Genre is existed, but should not.");
     }

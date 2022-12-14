@@ -21,7 +21,7 @@ class MpaDbStorageTest {
     private final MpaStorage mpaDbStorage;
 
     @Test
-    void getAllMpa() {
+    public void getAllMpa() {
         List<Mpa> listOfMpa = mpaDbStorage.getAllMpa();
         assertEquals(5, listOfMpa.size(), "List size of Mpa's is not correct!");
         assertThat(listOfMpa.get(0)).hasFieldOrPropertyWithValue("id", 1L)
@@ -31,14 +31,14 @@ class MpaDbStorageTest {
     }
 
     @Test
-    void getMpaById() {
+    public void getMpaById() {
         Mpa mpa = mpaDbStorage.getMpaById(3);
         assertThat(mpa).hasFieldOrPropertyWithValue("id", 3L)
                 .hasFieldOrPropertyWithValue("name", "PG-13");
     }
 
     @Test
-    void checkIfMpaExists() {
+    public void checkIfMpaExists() {
         assertTrue(mpaDbStorage.checkIfMpaExists(4), "Mpa is not existed, but should exist!");
         assertFalse(mpaDbStorage.checkIfMpaExists(-1), "Mpa is existed, but should not.");
     }
