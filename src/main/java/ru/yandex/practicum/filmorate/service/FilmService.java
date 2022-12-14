@@ -43,7 +43,7 @@ public class FilmService {
         }
     }
 
-    public Film GetFilmFromId(long id) {
+    public Film getFilmFromId(long id) {
         if (!filmStorage.checkIfFilmExists(id)) {
             log.warn("Film id does not exists!");
             throw new ObjectNotFoundException("Film object is not existed");
