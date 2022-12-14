@@ -23,6 +23,10 @@ class UserDbStorageTest {
 
     @BeforeEach
     public void beforeEach() {
+        String sqlRequest3 = "delete  from FRINDSHIP";
+        String sqlRequest4 = "alter table FRINDSHIP alter column FRINDSHIP_ID restart with 1";
+        jdbcTemplate.update(sqlRequest3);
+        jdbcTemplate.update(sqlRequest4);
         String sqlRequest = "delete  from USERS";
         String sqlRequest1 = "alter table USERS alter column USERS_ID restart with 1";
         jdbcTemplate.update(sqlRequest);
@@ -34,6 +38,18 @@ class UserDbStorageTest {
                 "values (?, ?, ?, ?)";
         jdbcTemplate.update(sqlInsert, "test2@email.ru", "test2Login",
                 "test2Name", LocalDate.of(2010, 10, 24));
+    }
+
+
+    @Test
+    void testTest() {
+        userStorage.saveFriend(1, 2);
+        userStorage.saveFriend(2, 1);
+        userStorage.getFriendList(1);
+    }
+    @Test
+    void testTest2() {
+
     }
 
     @Test
