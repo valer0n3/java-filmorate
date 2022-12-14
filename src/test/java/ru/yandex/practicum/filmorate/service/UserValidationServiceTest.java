@@ -1,9 +1,10 @@
 package ru.yandex.practicum.filmorate.service;
 
-import org.junit.jupiter.api.BeforeEach;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 
 import javax.validation.ValidationException;
 
@@ -11,13 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 class UserValidationServiceTest {
-    private UserValidationService userValidationService;
-
-    @BeforeEach
-    void setUp() {
-        userValidationService = new UserValidationService(new InMemoryUserStorage());
-    }
+    private final UserValidationService userValidationService;
 
     @Test
     public void ShouldThrowValidationExceptionWhenLoginHasSpaces() {

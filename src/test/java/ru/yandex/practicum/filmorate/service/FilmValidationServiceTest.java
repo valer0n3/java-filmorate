@@ -1,9 +1,9 @@
 package ru.yandex.practicum.filmorate.service;
 
-import org.junit.jupiter.api.BeforeEach;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
-import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.validation.ValidationException;
 import java.time.LocalDate;
@@ -11,13 +11,10 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@SpringBootTest
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 class FilmValidationServiceTest {
-    private FilmValidationService filmValidationService;
-
-    @BeforeEach
-    void setUp() {
-        filmValidationService = new FilmValidationService(new InMemoryFilmStorage(), new InMemoryUserStorage());
-    }
+    private final FilmValidationService filmValidationService;
 
     @Test
     public void shouldThrowValidationExceptionWhenReleaseDateIsEarlierThan1895_12_28() {
