@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class FilmService {
     private final FilmStorage filmStorage;
-    final UserStorage userStorage;
+    private final UserStorage userStorage;
     private final static Logger log = LoggerFactory.getLogger(FilmController.class);
 
     public void likeFilm(long filmId, long userId) {
