@@ -27,17 +27,17 @@ public class FilmDbStorage implements FilmStorage {
                 "values (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement stmt = connection.prepareStatement(sqlQuery, new String[]{"film_id"});
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery, new String[]{"film_id"});
             if (film.getMpa() != null) {
-                stmt.setLong(1, film.getMpa().getId());
+                preparedStatement.setLong(1, film.getMpa().getId());
             } else {
-                stmt.setNull(1, Types.BIGINT);
+                preparedStatement.setNull(1, Types.BIGINT);
             }
-            stmt.setString(2, film.getName());
-            stmt.setString(3, film.getDescription());
-            stmt.setDate(4, Date.valueOf(film.getReleaseDate()));
-            stmt.setString(5, String.valueOf(film.getDuration()));
-            return stmt;
+            preparedStatement.setString(2, film.getName());
+            preparedStatement.setString(3, film.getDescription());
+            preparedStatement.setDate(4, Date.valueOf(film.getReleaseDate()));
+            preparedStatement.setString(5, String.valueOf(film.getDuration()));
+            return preparedStatement;
         }, keyHolder);
         film.setId(keyHolder.getKey().longValue());
         if (film.getGenres() != null) {
