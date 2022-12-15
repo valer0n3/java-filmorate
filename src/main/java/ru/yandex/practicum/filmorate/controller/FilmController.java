@@ -1,6 +1,6 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,15 +19,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/films")
+@AllArgsConstructor
 public class FilmController {
     private final FilmValidationService filmValidationService;
     private final FilmService filmService;
-
-    @Autowired
-    public FilmController(FilmValidationService filmValidationService, FilmService filmService) {
-        this.filmValidationService = filmValidationService;
-        this.filmService = filmService;
-    }
 
     @PostMapping
     public Film saveNewFilm(@Valid @RequestBody Film film) {
@@ -57,13 +52,13 @@ public class FilmController {
     }
 
     @GetMapping("/popular")
-    public List<Film> getTopLikedMovies(@RequestParam(required = false) Integer count) {
-        return filmService.getTopLikedMovies(count);
+    public List<Film> getTopLikedFilms(@RequestParam(required = false) Integer count) {
+        return filmService.getTopLikedFilms(count);
     }
 
     @GetMapping("/{id}")
     public Film getFilmById(@PathVariable long id) {
-        return filmService.getFilmById(id);
+        return filmService.getFilmFromId(id);
     }
 }
 
